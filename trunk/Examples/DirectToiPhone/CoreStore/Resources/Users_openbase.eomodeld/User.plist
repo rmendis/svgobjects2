@@ -1,0 +1,42 @@
+{
+    attributes = (
+        {
+            columnName = FULLNAME; 
+            externalType = char; 
+            name = fullName; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = USERGROUP; 
+            externalType = char; 
+            name = group; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = LOGIN; 
+            externalType = char; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "_ROWID"; 
+            externalType = long; 
+            name = userID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (userID, fullName, group, name); 
+    className = EOGenericRecord; 
+    classProperties = (fullName, group, name); 
+    externalName = "_SYS_USERS"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_clientClassPropertyNames" = (fullName, group); uniqueID = 204386529; }; 
+    isAbstractEntity = Y; 
+    name = User; 
+    primaryKeyAttributes = (userID); 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

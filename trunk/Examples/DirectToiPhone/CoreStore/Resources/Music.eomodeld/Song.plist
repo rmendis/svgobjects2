@@ -1,0 +1,90 @@
+{
+    attributes = (
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = NUMBER; 
+            name = artistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NO; 
+            externalType = NUMBER; 
+            name = number; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "PLAYLIST_ID"; 
+            externalType = NUMBER; 
+            name = playlistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "TRACK_ID"; 
+            externalType = NUMBER; 
+            name = trackID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (trackID, title, playlistID, artistID, number); 
+    className = EOGenericRecord; 
+    classProperties = (title, artist, playlist, composers, number, products); 
+    externalName = SONG; 
+    fetchSpecificationDictionary = {}; 
+    name = Song; 
+    primaryKeyAttributes = (trackID); 
+    relationships = (
+        {
+            destination = Artist; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = artist; 
+        }, 
+        {
+            definition = "songComposers.composer"; 
+            joinSemantic = EOInnerJoin; 
+            name = composers; 
+        }, 
+        {
+            destination = Playlist; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = playlistID; sourceAttribute = playlistID; }); 
+            name = playlist; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = DigitalSong; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = trackID; }); 
+            name = products; 
+            ownsDestination = Y; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = SongComposer; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = trackID; sourceAttribute = trackID; }); 
+            name = songComposers; 
+            propagatesPrimaryKey = Y; 
+        }
+    ); 
+}

@@ -1,0 +1,67 @@
+<webobject name="PageTemplate1">
+  <defs>	  
+    <filter id="bar_drop_shadow" filterUnits="userSpaceOnUse">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
+      <feComponentTransfer result="shadow">
+        <feFuncA type="linear" slope=".5" intercept="0" />
+      </feComponentTransfer>
+      <feOffset dx="0" dy="2" result="offsetBlur"/>
+      <feMerge>
+        <feMergeNode in="offsetBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>		  
+  </defs>
+
+  <g>
+    <defs>
+      <linearGradient id="progress_background" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="rgb(206,212,216)" />
+        <stop offset="0.177" stop-color="rgb(238,241,242)" />
+        <stop offset="0.466" stop-color="rgb(197,204,211)" />
+        <stop offset="0.511" stop-color="rgb(197,204,211)" />
+        <stop offset="0.777" stop-color="white" />
+        <stop offset="0.911" stop-color="white" />
+        <stop offset="1" stop-color="rgb(228,231,233)" />
+      </linearGradient>
+      <linearGradient id="progress_active" x1="0" y1="0" x2="12" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+        <stop offset="0" stop-color="rgb(0,129,199)" />
+        <stop offset="0.05" stop-color="rgb(0,129,199)" />
+        <stop offset="0.45" stop-color="rgb(64,166,222)" />
+        <stop offset="0.55" stop-color="rgb(64,166,222)" />
+        <stop offset="0.95" stop-color="rgb(0,129,199)" />
+        <stop offset="1" stop-color="rgb(0,129,199)" />
+      </linearGradient>
+      <linearGradient id="progress_overlay" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="white" stop-opacity="0" />
+        <stop offset="0.15" stop-color="white" stop-opacity="0.6" />
+        <stop offset="0.20" stop-color="white" stop-opacity="0.6" />
+        <stop offset="0.911" stop-color="white" stop-opacity="0" />
+        <stop offset="1" stop-color="white" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <g transform="translate(16,183)">
+      <rect width="288" height="15" fill="url(#progress_background)" stroke="rgb(128,128,128)" stroke-width="0.5" filter="url(#image_drop_shadow)" />
+      <g>
+        <rect width="211" height="15" fill="url(#progress_active)" />
+      </g>
+      <rect width="211" height="15" fill="url(#progress_overlay)" stroke="rgb(128,128,128)" stroke-width="0.5" />
+    </g>
+  </g>
+
+  <rect x="15" y="65" width="102" height="102" fill="rgb(185,193,197)" />
+  <webobject name=Image></webobject>
+
+
+  <g fill="rgb(23,21,24)">
+    <text x="16" y="52" font-family="MyriadPro-Bold"  font-size="18"><webobject name=String1></webobject>
+    	of
+    	<webobject name=String2></webobject></text> 
+    <g transform="translate(133,91)">
+      <text font-family="MyriadPro-Bold" font-size="18"><webobject name=SongTitle></webobject></text>
+      <text font-family="MyriadPro-Bold" font-size="18" y="30"><webobject name=ArtistName></webobject></text>
+      <text font-family="MyriadPro-Bold" font-size="18" y="60"><WEBOBJECT NAME=AlbumName></WEBOBJECT></text>
+    </g>
+    <text x="16" y="225" font-family="MyriadPro-Bold" font-size="18">3:41</text> 
+    <text x="264" y="225" font-family="MyriadPro-Bold" font-size="18" text-anchor="end">-1:20</text> 
+  </g></webobject>

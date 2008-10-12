@@ -1,0 +1,64 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = varchar; 
+            name = entityName; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 50; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = varchar; 
+            name = name; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "LABEL_ID"; 
+            externalType = long; 
+            name = labelID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = long; 
+            name = artistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (entityName, name, labelID, artistID); 
+    className = EOGenericRecord; 
+    classProperties = (entityName, albums, name, singles); 
+    externalName = ARTIST; 
+    internalInfo = {
+        "_clientClassPropertyNames" = (entityName, albums, name, singles); 
+        uniqueID = 204204784; 
+    }; 
+    isAbstractEntity = Y; 
+    name = Artist; 
+    primaryKeyAttributes = (artistID); 
+    relationships = (
+        {
+            destination = Album; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = albums; 
+        }, 
+        {
+            destination = MaxiSingle; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = singles; 
+        }
+    ); 
+}

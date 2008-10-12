@@ -1,0 +1,97 @@
+{
+    attributes = (
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = NUMBER; 
+            name = artistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "BOX_SET_ID"; 
+            externalType = NUMBER; 
+            name = boxSetID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "GENRE_ID"; 
+            externalType = NUMBER; 
+            name = genreID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "LABEL_ID"; 
+            externalType = NUMBER; 
+            name = labelID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (genreID, boxSetID, title, labelID, artistID); 
+    className = EOGenericRecord; 
+    classProperties = (title, label, genre, playlists, artist, products); 
+    externalName = "BOX_SET"; 
+    fetchSpecificationDictionary = {}; 
+    name = BoxSet; 
+    primaryKeyAttributes = (boxSetID); 
+    relationships = (
+        {
+            destination = Artist; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = artist; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = BoxSetAlbum; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = boxSetID; sourceAttribute = boxSetID; }); 
+            name = boxSetPlaylists; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {
+            destination = Genre; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = genreID; sourceAttribute = genreID; }); 
+            name = genre; 
+        }, 
+        {
+            destination = Label; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = labelID; sourceAttribute = labelID; }); 
+            name = label; 
+        }, 
+        {
+            definition = "boxSetPlaylists.playlist"; 
+            joinSemantic = EOInnerJoin; 
+            name = playlists; 
+        }, 
+        {
+            destination = DigitalBoxSet; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = boxSetID; }); 
+            name = products; 
+        }
+    ); 
+}

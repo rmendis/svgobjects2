@@ -1,0 +1,76 @@
+{
+    attributes = (
+        {
+            columnName = "CONTENT_ID"; 
+            externalType = NUMBER; 
+            name = contentID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = PRICE; 
+            externalType = NUMBER; 
+            name = price; 
+            precision = 10; 
+            scale = 2; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSDecimalNumber; 
+            valueType = B; 
+        }, 
+        {
+            columnName = "PRODUCT_ID"; 
+            externalType = NUMBER; 
+            name = productID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "STORE_ID"; 
+            externalType = NUMBER; 
+            name = storeID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (contentID, productID, storeID, price, entityName); 
+    className = "com.apple.itunes.store.Product"; 
+    classProperties = (price, store, entityName, content); 
+    externalName = PRODUCT; 
+    fetchSpecificationDictionary = {}; 
+    name = DigitalBoxSet; 
+    parent = Product; 
+    primaryKeyAttributes = (productID); 
+    relationships = (
+        {
+            destination = BoxSet; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = boxSetID; sourceAttribute = contentID; }); 
+            name = content; 
+        }, 
+        {
+            destination = Store; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = storeID; sourceAttribute = storeID; }); 
+            name = store; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'DigitalBoxSet')"; 
+}

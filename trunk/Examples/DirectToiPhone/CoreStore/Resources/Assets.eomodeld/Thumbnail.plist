@@ -1,0 +1,41 @@
+{
+    attributes = (
+        {
+            columnName = "ASSET_ID"; 
+            externalType = NUMBER; 
+            name = assetID; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = d; 
+        }, 
+        {
+            columnName = TOKEN; 
+            externalType = VARCHAR2; 
+            name = token; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 255; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 50; 
+        }
+    ); 
+    attributesUsedForLocking = (assetID, token, entityName); 
+    className = "com.apple.itunes.store.Asset"; 
+    classProperties = (token, entityName); 
+    externalName = ASSET; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_clientClassPropertyNames" = (token, entityName); uniqueID = 203828576; }; 
+    name = Thumbnail; 
+    parent = Asset; 
+    primaryKeyAttributes = (assetID); 
+    restrictingQualifier = "(entityName = 'Thumbnail')"; 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

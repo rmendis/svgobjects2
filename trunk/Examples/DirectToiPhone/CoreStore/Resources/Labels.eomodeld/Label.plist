@@ -1,0 +1,52 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = "LABEL_ID"; 
+            externalType = NUMBER; 
+            name = labelID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENT_LABEL_ID"; 
+            externalType = NUMBER; 
+            name = parentLabelID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (labelID, name, entityName, parentLabelID); 
+    className = "com.apple.itunes.store.Label"; 
+    classProperties = (name, entityName, artists); 
+    externalName = LABEL; 
+    fetchSpecificationDictionary = {}; 
+    isAbstractEntity = Y; 
+    name = Label; 
+    primaryKeyAttributes = (labelID); 
+    relationships = (
+        {
+            destination = Artist; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = labelID; sourceAttribute = labelID; }); 
+            name = artists; 
+        }
+    ); 
+}

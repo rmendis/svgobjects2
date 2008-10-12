@@ -1,0 +1,18 @@
+MenuItem: MenuItem {
+	index = index;
+	title = menuTitle;
+}
+
+MenuRepetition: WORepetition {
+	index = index;
+	item = object;
+	list = displayGroup.displayedObjects;
+}
+
+Menulink: WXHyperlink {
+	action = select;
+}
+
+PageTemplate: PageTemplate {
+	title = pageTitle;
+}

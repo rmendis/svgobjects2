@@ -1,0 +1,40 @@
+{
+    attributes = (
+        {
+            columnName = "COMPOSER_ID"; 
+            externalType = NUMBER; 
+            name = composerID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "TRACK_ID"; 
+            externalType = NUMBER; 
+            name = trackID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (composerID, trackID); 
+    className = EOGenericRecord; 
+    externalName = "SONG_COMPOSER"; 
+    fetchSpecificationDictionary = {}; 
+    name = SongComposer; 
+    primaryKeyAttributes = (composerID, trackID); 
+    relationships = (
+        {
+            destination = Composer; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = composerID; sourceAttribute = composerID; }); 
+            name = composer; 
+        }, 
+        {
+            destination = Song; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = trackID; sourceAttribute = trackID; }); 
+            name = song; 
+        }
+    ); 
+}

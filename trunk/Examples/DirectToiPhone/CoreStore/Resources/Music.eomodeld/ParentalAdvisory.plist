@@ -1,0 +1,27 @@
+{
+    attributes = (
+        {
+            columnName = "PARENTAL_ADVISORY_ID"; 
+            externalType = NUMBER; 
+            name = parentalAdvisoryID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TYPE; 
+            externalType = VARCHAR2; 
+            name = type; 
+            valueClassName = NSString; 
+            width = 50; 
+        }
+    ); 
+    attributesUsedForLocking = (parentalAdvisoryID, type); 
+    cachesObjects = Y; 
+    className = EOGenericRecord; 
+    classProperties = (type); 
+    externalName = "PARENTAL_ADVISORY"; 
+    fetchSpecificationDictionary = {}; 
+    name = ParentalAdvisory; 
+    primaryKeyAttributes = (parentalAdvisoryID); 
+}

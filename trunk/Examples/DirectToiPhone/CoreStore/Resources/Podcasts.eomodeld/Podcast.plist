@@ -1,0 +1,45 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = DETAIL; 
+            externalType = VARCHAR2; 
+            name = detail; 
+            valueClassName = NSString; 
+            width = 2095; 
+        }, 
+        {
+            columnName = "PODCAST_ID"; 
+            externalType = NUMBER; 
+            name = podcastID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (podcastID, title, detail); 
+    className = EOGenericRecord; 
+    classProperties = (title, episodes, detail); 
+    externalName = PODCAST; 
+    fetchSpecificationDictionary = {}; 
+    name = Podcast; 
+    primaryKeyAttributes = (podcastID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = PodcastEpisode; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = podcastID; sourceAttribute = podcastID; }); 
+            name = episodes; 
+            ownsDestination = Y; 
+        }
+    ); 
+}

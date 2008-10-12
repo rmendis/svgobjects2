@@ -1,0 +1,77 @@
+{
+    attributes = (
+        {
+            columnName = DETAIL; 
+            externalType = VARCHAR2; 
+            name = detail; 
+            valueClassName = NSString; 
+            width = 2095; 
+        }, 
+        {
+            columnName = NO; 
+            externalType = NUMBER; 
+            name = number; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "SEASON_ID"; 
+            externalType = NUMBER; 
+            name = seasonID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "SHOW_ID"; 
+            externalType = NUMBER; 
+            name = showID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (seasonID, number, showID, detail, title); 
+    className = EOGenericRecord; 
+    classProperties = (number, show, detail, episodes, products, title); 
+    externalName = SEASON; 
+    fetchSpecificationDictionary = {}; 
+    name = Season; 
+    primaryKeyAttributes = (seasonID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = TVEpisode; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = seasonID; sourceAttribute = seasonID; }); 
+            name = episodes; 
+            ownsDestination = Y; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = DigitalSeason; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = seasonID; }); 
+            name = products; 
+            ownsDestination = Y; 
+        }, 
+        {
+            destination = TVShow; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = showID; sourceAttribute = showID; }); 
+            name = show; 
+        }
+    ); 
+}

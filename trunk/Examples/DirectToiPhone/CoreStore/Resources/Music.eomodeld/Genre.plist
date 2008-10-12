@@ -1,0 +1,52 @@
+{
+    attributes = (
+        {
+            columnName = "GENRE_ID"; 
+            externalType = NUMBER; 
+            name = genreID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENT_GENRE_ID"; 
+            externalType = NUMBER; 
+            name = parentGenreID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (genreID, name, parentGenreID); 
+    cachesObjects = Y; 
+    className = "com.apple.itunes.store.Genre"; 
+    classProperties = (name, parent, subGenres); 
+    externalName = GENRE; 
+    fetchSpecificationDictionary = {}; 
+    name = Genre; 
+    primaryKeyAttributes = (genreID); 
+    relationships = (
+        {
+            destination = Genre; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = genreID; sourceAttribute = parentGenreID; }); 
+            name = parent; 
+        }, 
+        {
+            destination = Genre; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = parentGenreID; sourceAttribute = genreID; }); 
+            name = subGenres; 
+        }
+    ); 
+}

@@ -1,0 +1,3 @@
+(
+    10 : (task = 'list' and look = 'iPodLook') => pageName = com.webobjects.directtoiphone.ipodlook.iPodListPage [com.webobjects.directtoweb.Assignment]
+)

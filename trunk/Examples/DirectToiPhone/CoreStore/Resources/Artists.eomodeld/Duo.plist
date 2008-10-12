@@ -1,0 +1,107 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = "LABEL_ID"; 
+            externalType = long; 
+            name = labelID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "FIRST_ARTIST_ID"; 
+            externalType = long; 
+            name = firstArtistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "SECOND_ARTIST_ID"; 
+            externalType = long; 
+            name = secondArtistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = varchar; 
+            name = name; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 255; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = varchar; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 50; 
+        }, 
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = long; 
+            name = artistID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (labelID, firstArtistID, secondArtistID, name, entityName, artistID); 
+    className = "com.apple.itunes.store.Artist"; 
+    classProperties = (firstArtist, albums, singles, name, entityName, secondArtist); 
+    externalName = ARTIST; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {
+        "_clientClassPropertyNames" = (firstArtist, albums, singles, name, entityName, secondArtist); 
+        uniqueID = 204204777; 
+    }; 
+    name = Duo; 
+    parent = Artist; 
+    primaryKeyAttributes = (artistID); 
+    relationships = (
+        {
+            destination = SoloArtist; 
+            internalInfo = {uniqueID = 204204748; }; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = firstArtistID; }); 
+            name = firstArtist; 
+        }, 
+        {
+            destination = Album; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = albums; 
+        }, 
+        {
+            destination = MaxiSingle; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = singles; 
+        }, 
+        {
+            destination = SoloArtist; 
+            internalInfo = {uniqueID = 204204676; }; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = secondArtistID; }); 
+            name = secondArtist; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'Duo')"; 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

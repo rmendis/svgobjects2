@@ -1,0 +1,49 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "LANGUAGE_ID"; 
+            externalType = NUMBER; 
+            name = languageID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (languageID, name, entityName); 
+    className = "com.apple.itunes.store.Language"; 
+    classProperties = (name, entityName); 
+    externalName = LANGUAGE; 
+    fetchSpecificationDictionary = {}; 
+    name = English; 
+    parent = Language; 
+    primaryKeyAttributes = (languageID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = CountryLanguage; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = languageID; sourceAttribute = languageID; }); 
+            name = countryLanguages; 
+            propagatesPrimaryKey = Y; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'English')"; 
+}

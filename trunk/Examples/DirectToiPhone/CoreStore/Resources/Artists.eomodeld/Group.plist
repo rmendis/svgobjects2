@@ -1,0 +1,93 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = "LABEL_ID"; 
+            externalType = long; 
+            name = labelID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = varchar; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 50; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = varchar; 
+            name = name; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 255; 
+        }, 
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = long; 
+            name = artistID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (labelID, entityName, name, artistID); 
+    className = "com.apple.itunes.store.Artist"; 
+    classProperties = (label, albums, singles, entityName, name, artists); 
+    externalName = ARTIST; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {
+        "_clientClassPropertyNames" = (label, albums, singles, entityName, name, artists); 
+        uniqueID = 204204808; 
+    }; 
+    name = Group; 
+    parent = Artist; 
+    primaryKeyAttributes = (artistID); 
+    relationships = (
+        {
+            destination = Label; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = labelID; sourceAttribute = labelID; }); 
+            name = label; 
+        }, 
+        {
+            destination = Album; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = albums; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = ArtistGroup; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = groupID; sourceAttribute = artistID; }); 
+            name = artistGroups; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {
+            destination = MaxiSingle; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = singles; 
+        }, 
+        {
+            definition = "artistGroups.artist"; 
+            joinSemantic = EOInnerJoin; 
+            name = artists; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'Group')"; 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

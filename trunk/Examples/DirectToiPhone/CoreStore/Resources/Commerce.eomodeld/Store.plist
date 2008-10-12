@@ -1,0 +1,52 @@
+{
+    attributes = (
+        {
+            columnName = "CURRENCY_ID"; 
+            externalType = NUMBER; 
+            name = currencyID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "STORE_ID"; 
+            externalType = NUMBER; 
+            name = storeID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (storeID, name, currencyID); 
+    className = EOGenericRecord; 
+    classProperties = (name, countries, currency); 
+    externalName = STORE; 
+    fetchSpecificationDictionary = {}; 
+    name = Store; 
+    primaryKeyAttributes = (storeID); 
+    relationships = (
+        {
+            destination = Country; 
+            isMandatory = Y; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = storeID; sourceAttribute = storeID; }); 
+            name = countries; 
+        }, 
+        {
+            destination = Currency; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = currencyID; sourceAttribute = currencyID; }); 
+            name = currency; 
+        }
+    ); 
+}

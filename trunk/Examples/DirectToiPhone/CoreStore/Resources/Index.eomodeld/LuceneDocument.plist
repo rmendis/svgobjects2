@@ -1,0 +1,91 @@
+{
+    attributes = (
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = long; 
+            isReadOnly = Y; 
+            name = artistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ARTIST_NAME"; 
+            externalType = char; 
+            isReadOnly = Y; 
+            name = artistName; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "PLAYLIST_ID"; 
+            externalType = long; 
+            isReadOnly = Y; 
+            name = playlistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "PLAYLIST_TITLE"; 
+            externalType = char; 
+            isReadOnly = Y; 
+            name = playlistTitle; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = PRICE; 
+            externalType = money; 
+            isReadOnly = Y; 
+            name = price; 
+            precision = 10; 
+            scale = 2; 
+            valueClassName = NSDecimalNumber; 
+            valueType = B; 
+        }, 
+        {
+            columnName = "STORE_ID"; 
+            externalType = long; 
+            isReadOnly = Y; 
+            name = storeID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "SONG_TITLE"; 
+            externalType = char; 
+            isReadOnly = Y; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "TRACK_ID"; 
+            externalType = long; 
+            isReadOnly = Y; 
+            name = trackID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (
+        trackID, 
+        title, 
+        artistName, 
+        playlistTitle, 
+        playlistID, 
+        artistID, 
+        price, 
+        storeID
+    ); 
+    className = "com.apple.itunes.store.index.LuceneDocument"; 
+    classProperties = (title, artistName, playlistTitle, price, playlistID, artistID, trackID); 
+    externalName = "LUCENE_DOCUMENT"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_nameInObjectStore" = "SONG_INDEX"; }; 
+    name = LuceneDocument; 
+    primaryKeyAttributes = (trackID, storeID); 
+}

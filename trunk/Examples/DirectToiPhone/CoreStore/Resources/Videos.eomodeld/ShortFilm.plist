@@ -1,0 +1,53 @@
+{
+    attributes = (
+        {
+            columnName = "STUDIO_ID"; 
+            externalType = NUMBER; 
+            name = studioID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "VIDEO_ID"; 
+            externalType = NUMBER; 
+            name = videoID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (videoID, title, studioID); 
+    className = EOGenericRecord; 
+    classProperties = (title, studio, products); 
+    externalName = "SHORT_FILM"; 
+    fetchSpecificationDictionary = {}; 
+    name = ShortFilm; 
+    primaryKeyAttributes = (videoID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = DigitalShortFilm; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = videoID; }); 
+            name = products; 
+            ownsDestination = Y; 
+        }, 
+        {
+            destination = Studio; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = studioID; sourceAttribute = studioID; }); 
+            name = studio; 
+        }
+    ); 
+}

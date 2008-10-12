@@ -1,0 +1,118 @@
+AppleLogo: WOImage {
+	alt = "Apple lives";
+	border = "0";
+	filename = "Apple-bw.gif";
+	framework = "JavaDirectToWeb";
+	height = "33";
+	name = "Apple lives";
+	width = "30";
+}
+
+AssistantActiveConditional: WOConditional {
+	condition = isWebAssistantEnabled;
+}
+
+CustomizeButton: WOImage {
+	alt = "Activates the WebAssistant";
+	border = "0";
+	filename = "custmz-btn.gif";
+	framework = "JavaDirectToWeb";
+	height = "27";
+	name = "Activates the WebAssistant";
+	width = "100";
+}
+
+CustomizeLink: WOHyperlink {
+	action = showWebAssistant;
+}
+
+EntitiesForm: WOForm {
+}
+
+EntitiesPopup: WOPopUpButton {
+	displayString = entityNameInList;
+	item = entityNameInList;
+	list = visibleEntityNames;
+	selection = manipulatedEntityName;
+}
+
+FindButton: WOImageButton {
+	action = findEntityAction;
+	alt = "Builds a Query Component for the selected Entity";
+	border = "0";
+	filename = "search-btn.gif";
+	framework = "JavaDirectToWeb";
+	height = "27";
+	name = "Builds a Query Component for the selected Entity";
+	width = "100";
+}
+
+HasValidSession: WOConditional {
+	condition = context.hasSession;
+}
+
+HomeButton: WOImage {
+	alt = "Exit to Top/Home";
+	border = "0";
+	filename = "home-btn.gif";
+	framework = "JavaDirectToWeb";
+	height = "27";
+	name = "Exit to Top/Home";
+	width = "100";
+}
+
+HomeLink: WOHyperlink {
+	action = homeAction;
+}
+
+LAEnabledConditional: WOConditional {
+	condition = isWebAssistantEnabled;
+}
+
+LoginButton: WOImage {
+	alt = "Logout";
+	border = "0";
+	filename = "logout-btn.gif";
+	framework = "JavaDirectToWeb";
+	height = "27";
+	name = "Logout";
+	width = "100";
+}
+
+LoginLink: WOHyperlink {
+	action = logout;
+	target = "_top";
+}
+
+NewButton: WOImageButton {
+	action = newObjectAction;
+	alt = "Creates a new Object of the selected Entity";
+	border = "0";
+	filename = "new-btn.gif";
+	framework = "JavaDirectToWeb";
+	height = "27";
+	name = "Creates a new Object of the selected Entity";
+	width = "100";
+}
+
+NoValidSession: WOConditional {
+	condition = context.hasSession;
+	negate = true;
+}
+
+NoValidSession2: WOConditional {
+	condition = context.hasSession;
+	negate = true;
+}
+
+RemoteControl: D2WRemoteControl {
+}
+
+String1: WOString {
+	value = session.user.fullName;
+}
+
+String2: WOString {
+	value = session.user.entityName;
+}
+

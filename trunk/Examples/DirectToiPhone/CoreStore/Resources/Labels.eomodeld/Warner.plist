@@ -1,0 +1,71 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = "LABEL_ID"; 
+            externalType = NUMBER; 
+            name = labelID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENT_LABEL_ID"; 
+            externalType = NUMBER; 
+            name = parentLabelID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (labelID, name, entityName, parentLabelID); 
+    className = "com.apple.itunes.store.Warner"; 
+    classProperties = (name, entityName, artists, parent, labels); 
+    externalName = LABEL; 
+    fetchSpecificationDictionary = {}; 
+    name = Warner; 
+    parent = Label; 
+    primaryKeyAttributes = (labelID); 
+    relationships = (
+        {
+            destination = Artist; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = labelID; sourceAttribute = labelID; }); 
+            name = artists; 
+        }, 
+        {
+            destination = Warner; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = parentLabelID; sourceAttribute = labelID; }); 
+            name = labels; 
+        }, 
+        {
+            destination = Warner; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = labelID; sourceAttribute = parentLabelID; }); 
+            name = parent; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'Warner')"; 
+}

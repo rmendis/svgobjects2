@@ -1,0 +1,59 @@
+{
+    attributes = (
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = detail; 
+            valueClassName = NSString; 
+            width = 2095; 
+        }, 
+        {
+            columnName = "SHOW_ID"; 
+            externalType = NUMBER; 
+            name = showID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "STUDIO_ID"; 
+            externalType = NUMBER; 
+            name = studioID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (showID, title, studioID, detail); 
+    className = EOGenericRecord; 
+    classProperties = (title, studio, seasons, detail); 
+    externalName = "TV_SHOW"; 
+    fetchSpecificationDictionary = {}; 
+    name = TVShow; 
+    primaryKeyAttributes = (showID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = Season; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = showID; sourceAttribute = showID; }); 
+            name = seasons; 
+            ownsDestination = Y; 
+        }, 
+        {
+            destination = Studio; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = studioID; sourceAttribute = studioID; }); 
+            name = studio; 
+        }
+    ); 
+}

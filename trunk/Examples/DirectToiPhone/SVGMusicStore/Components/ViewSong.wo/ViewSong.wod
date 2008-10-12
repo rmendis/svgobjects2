@@ -1,0 +1,36 @@
+AlbumName: WOTruncatedString {
+	value = object.playlist.title;
+        length = 21;
+}
+
+ArtistName: WOTruncatedString {
+	value = object.artist.name;
+        length = 19;
+}
+
+Image: WOXMLNode {
+	elementName = "image";
+	filter = "url(#image_drop_shadow)";
+	height = 100;
+	width = 100;
+	x = 16;
+	"xlink:href" = object.playlist.coverArt.url;
+	y = 66;
+}
+
+PageTemplate1: PageTemplate {
+	title = "Now Playing";
+}
+
+SongTitle: WOTruncatedString {
+	value = object.title;
+        length = 21;
+}
+
+String1: WOString {
+	value = object.number;
+}
+
+String2: WOString {
+	value = object.playlist.songsCount;
+}
