@@ -1,0 +1,3 @@
+Image1: WOImage {
+	src = value;
+}

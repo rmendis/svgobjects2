@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<H1>svgobjects 2.0</H1>
+
+<H2>What's New</H2>
+
+<h4>Introduction</h4>
+<p>An overview of svgbjects 2.0 can be found at <a href="http://svgobjects2.com">http://www.svgobjects2.com</a>. This document outlines the new additions since the 1.0 distribution. </p>
+
+<p>Most notable is the move to Eclipse projects for WebObjects 5.4. The following are new to svgobjects 2.0:</p>
+
+<h3>DirectToiPhone</h3>
+
+<p>A D2W framework for generating iPhone web apps (in SVG and XHTML+CSS).</p>
+
+<h3>DirectToWeb 'iPod Look' framework</h3>
+
+<p>This is a D2W framework for presenting an iPod like UI to a DirectToWeb application. The interface 100% SVG: a rich interface application or a web 2.0 app. </p>
+<p>It is best viewed in WebKit (aka Safari 3.0), or FireFox 1.5+, Opera 8+ or other SVG native browsers. That however excludes any existing version of IE (without a SVG plugin).</p>
+
+<h4>Example/Demo: DirectToiPhone</h4>
+<p>This example is a music store web app: in an SVG or XHTML+CSS 'look'.</p>
+<TABLE BORDER WIDTH="80%" >
+<TR>
+<TD>CoreStore</TD>
+
+<TD>Framework for model and business logic for demo music store.</TD>
+</TR>
+
+<TR>
+<TD>StoreAdmin</TD>
+
+<TD>Simple D2W admin app for CoreStore. </TD>
+</TR>
+
+<TR>
+<TD>SVGMusicStore</TD>
+
+<TD>A SVG front end to CoreStore that mimics an iPod interface. It is a true D2W application that employs DirectToiPhone and the iPod Look framework to generate its interface.</TD>
+</TR>
+
+<TR>
+<TD>XHTMLMusicStore</TD>
+
+<TD>An iPhone front end to CoreStore that is "API-compatible" with the SVG / 'iPod Look' SVG music store.</TD>
+</TR>
+
+</TABLE>
+
+<H3>sXBL Examples</h3>
+<p>These examples need to be viewed with FireFox 1.5 or better. sXBL is currently unsupported in Safari or WebKit.</p>
+<TABLE BORDER WIDTH="80%" >
+<TR>
+<TD>SOTriangleTest</TD>
+
+<TD>Test application binding a &lt;triangle&gt; to SVG with interactivity.</TD>
+</TR>
+
+<TR>
+<TD>SXShapeTest</TD>
+
+<TD>Simple test app binding &lt;shape&gt; to SVG again with interactivity.</TD>
+</TR>
+
+</TABLE><br />
+
+<h2>1.0 Deprecations</h2>
+<p>All trivial SVGObjects 1.0 dynamic elements have been deprecated. This is because the WebObjects 5.4 combined/XML template parser can shortcut such SVG dynamic elements with a WOGenericContainer/Element.</p>
+
+<HR><I>Examples by: Ravi Mendis.</I>
+</BODY>
+</HTML>

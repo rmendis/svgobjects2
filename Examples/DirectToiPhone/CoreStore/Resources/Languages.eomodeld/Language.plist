@@ -1,0 +1,45 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "LANGUAGE_ID"; 
+            externalType = NUMBER; 
+            name = languageID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (languageID, name, entityName); 
+    className = EOGenericRecord; 
+    classProperties = (name, entityName); 
+    externalName = LANGUAGE; 
+    fetchSpecificationDictionary = {}; 
+    isAbstractEntity = Y; 
+    name = Language; 
+    primaryKeyAttributes = (languageID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = CountryLanguage; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = languageID; sourceAttribute = languageID; }); 
+            name = countryLanguages; 
+            propagatesPrimaryKey = Y; 
+        }
+    ); 
+}

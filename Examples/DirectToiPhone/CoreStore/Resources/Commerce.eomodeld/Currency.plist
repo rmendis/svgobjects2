@@ -1,0 +1,26 @@
+{
+    attributes = (
+        {
+            columnName = "CURRENCY_ID"; 
+            externalType = NUMBER; 
+            name = currencyID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (currencyID, name); 
+    className = EOGenericRecord; 
+    classProperties = (name); 
+    externalName = CURRENCY; 
+    fetchSpecificationDictionary = {}; 
+    name = Currency; 
+    primaryKeyAttributes = (currencyID); 
+}

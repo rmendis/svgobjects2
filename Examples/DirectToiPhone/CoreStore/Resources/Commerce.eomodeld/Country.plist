@@ -1,0 +1,58 @@
+{
+    attributes = (
+        {
+            columnName = "COUNTRY_ID"; 
+            externalType = NUMBER; 
+            name = countryID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "STORE_ID"; 
+            externalType = NUMBER; 
+            name = storeID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (countryID, name, storeID); 
+    className = EOGenericRecord; 
+    classProperties = (name, languages, store); 
+    externalName = COUNTRY; 
+    fetchSpecificationDictionary = {}; 
+    name = Country; 
+    primaryKeyAttributes = (countryID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = CountryLanguage; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = countryID; sourceAttribute = countryID; }); 
+            name = countryLanguages; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {
+            definition = "countryLanguages.language"; 
+            joinSemantic = EOInnerJoin; 
+            name = languages; 
+        }, 
+        {
+            destination = Store; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = storeID; sourceAttribute = storeID; }); 
+            name = store; 
+        }
+    ); 
+}

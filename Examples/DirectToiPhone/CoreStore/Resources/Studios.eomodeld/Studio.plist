@@ -1,0 +1,43 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENT_STUDIO_ID"; 
+            externalType = NUMBER; 
+            name = parentStudioID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "STUDIO_ID"; 
+            externalType = NUMBER; 
+            name = studioID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (studioID, name, entityName, parentStudioID); 
+    className = EOGenericRecord; 
+    classProperties = (name, entityName); 
+    externalName = STUDIO; 
+    fetchSpecificationDictionary = {}; 
+    isAbstractEntity = Y; 
+    name = Studio; 
+    primaryKeyAttributes = (studioID); 
+}

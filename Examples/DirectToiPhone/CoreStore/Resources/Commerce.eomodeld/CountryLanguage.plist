@@ -1,0 +1,42 @@
+{
+    attributes = (
+        {
+            columnName = "COUNTRY_ID"; 
+            externalType = NUMBER; 
+            name = countryID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "LANGUAGE_ID"; 
+            externalType = NUMBER; 
+            name = languageID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (countryID, languageID); 
+    className = EOGenericRecord; 
+    externalName = "COUNTRY_LANGUAGE"; 
+    fetchSpecificationDictionary = {}; 
+    name = CountryLanguage; 
+    primaryKeyAttributes = (countryID, languageID); 
+    relationships = (
+        {
+            destination = Country; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = countryID; sourceAttribute = countryID; }); 
+            name = country; 
+        }, 
+        {
+            destination = Language; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = languageID; sourceAttribute = languageID; }); 
+            name = language; 
+        }
+    ); 
+}

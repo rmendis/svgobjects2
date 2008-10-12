@@ -1,0 +1,62 @@
+{
+    attributes = (
+        {
+            columnName = "CONTENT_ID"; 
+            externalType = NUMBER; 
+            name = contentID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = PRICE; 
+            externalType = NUMBER; 
+            name = price; 
+            precision = 10; 
+            scale = 2; 
+            valueClassName = NSDecimalNumber; 
+            valueType = B; 
+        }, 
+        {
+            columnName = "PRODUCT_ID"; 
+            externalType = NUMBER; 
+            name = productID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "STORE_ID"; 
+            externalType = NUMBER; 
+            name = storeID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (contentID, productID, storeID, price, entityName); 
+    className = EOGenericRecord; 
+    classProperties = (price, store, entityName); 
+    externalName = PRODUCT; 
+    fetchSpecificationDictionary = {}; 
+    isAbstractEntity = Y; 
+    name = Product; 
+    primaryKeyAttributes = (productID); 
+    relationships = (
+        {
+            destination = Store; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = storeID; sourceAttribute = storeID; }); 
+            name = store; 
+        }
+    ); 
+}

@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (WinNT; I) [Netscape]">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<H1>svgobjects 2.0 Examples Overview</H1>
+
+
+<H3>Installation</H3>
+<H4>Eclipse</h4>
+<P>Mot notably new to this release is the migration of projects to Eclipse. 
+	To import the svgobjects distribution into Eclipse:
+</P>
+
+<ol>
+	<li>File -&gt; Import... </li>
+	<li>Select General -&gt; Existing Projects into Workspace.</li>
+	<li>Choose the svgobjects2 distribution folder as the root directory.</li>
+	<li>Check all the projects in the list and click Finish.</li>		
+</ol>
+
+<p>Then install each of the frameworks from Eclipse: DirectToiPhone, CoreStore, iPodLook and svgobjects. NOTE: make sure the WebServer resources of DirectToiPhone are installed on a running web server.</p>
+
+<H3>Running the Examples</H3>
+<P>Once the frameworks have been installed, you may build & run the example apps. </p>
+	
+	<p>This will also require installing the databases per example. You may restore the database from the .bkp file contained in each project. You will however, have to create a Database in Openbase of the same name first.</P>
+		
+<p>E.g: To run the iPhone music store example apps, you need to "Restore from ascii" the CoreiTMS.bck located in the folder:<pre>../CoreStore/Database/</pre></p>
+
+<P>The examples consist of the following projects:
+<BR><TABLE BORDER WIDTH="80%" >
+<TR>
+	<Th>Example</Th>
+
+	<Th>Description</Th>
+	<Th>Database</Th>
+</TR>
+
+<TR>
+<Td><strong>SVGMusicStore</strong></Td>
+
+<TD>A 100% SVG UI generated with the DirectToWeb engine.</TD>
+<td>CoreiTMS</td>
+</TR>
+
+<TR>
+<Td><strong>XHTMLMusicStore</strong></Td>
+
+<TD>A 100% XHTML+CSS UI generated with the DirectToWeb engine.</TD>
+<td>CoreiTMS</td>
+</TR>
+
+<TR>
+<Td>StoreAdmin</Td>
+
+<TD>A simple D2W admin for the Core Store database.Note: you will need to login with one of the DB users. E.g: <pre>ravi/ravi</pre></TD>
+<td>CoreiTMS</td>
+</TR>
+
+<TR>
+<TD>SXShapeTest</TD>
+
+<TD>Simple demonstration of generating typographic images on the fly</TD>
+<td>Shapes</td>
+
+</TR>
+
+<TR>
+<TD>SOTriangleTest</TD>
+
+<TD>Mostly for developers to see examples of SVGObjects components and their bindings</TD>
+<td>Triangles</td>
+
+</TR>
+
+
+</TABLE>
+
+<H3>
+<B><FONT SIZE=+2>DirectToiPhone </FONT></B><B><FONT SIZE=+2>(complex)</FONT></B></H3>
+
+<h4>SVGMusicStore</h4>
+Programming tasks:
+<UL>
+<LI>Use of D2W architecture to create Web 2.0 applications for SVG enabled mobile browsers/devices.</LI>
+
+<LI>Separate presentation (in SVG) and content: D2W rules only dictate the structure of the application. </LI>
+
+<li>Use of iPodLook SVG framework.</li>
+
+</UL>
+
+<h4>XHTMLMusicStore</h4>
+Programming tasks:
+<UL>
+<LI>Use of D2W architecture to create Web 2.0 applications for the iPhone.</LI>
+
+<LI>Separate presentation and content with 100% XHTML + CSS.</LI>
+
+<li>Use of iPhoneLook XHTML+CSS framework.</li>
+
+</UL>
+
+<H3>
+<B><FONT SIZE=+2>SXShapeTest (simple)</FONT></B></H3>
+Programming tasks:
+<UL>
+<LI>Basic Database driven interactive image generation.</LI></ul>
+
+<H3>
+<B><FONT SIZE=+2>SOTriangleTest (</FONT></B><B><FONT SIZE=+2>simple</FONT></B><B><FONT SIZE=+2>)</FONT></B></H3>
+Programming tasks:
+<UL>
+	<LI>Basic Database driven interactive image generation.</LI>
+	</ul>
+
+<HR><I>Examples by: Ravi Mendis.</I>
+</BODY>
+</HTML>

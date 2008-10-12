@@ -1,0 +1,45 @@
+{
+    attributes = (
+        {
+            columnName = FULLNAME; 
+            externalType = char; 
+            name = fullName; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = USERGROUP; 
+            externalType = char; 
+            name = group; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = LOGIN; 
+            externalType = char; 
+            name = name; 
+            serverTimeZone = "Europe/Zurich"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "_ROWID"; 
+            externalType = long; 
+            name = userID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (userID, fullName, group); 
+    className = EOGenericRecord; 
+    classProperties = (fullName, group); 
+    externalName = "_SYS_USERS"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_clientClassPropertyNames" = (fullName, group); uniqueID = 204386390; }; 
+    isReadOnly = Y; 
+    name = Administrator; 
+    parent = User; 
+    primaryKeyAttributes = (userID); 
+    restrictingQualifier = "(group = 'admin')"; 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

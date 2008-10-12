@@ -1,0 +1,57 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENT_STUDIO_ID"; 
+            externalType = NUMBER; 
+            name = parentStudioID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "STUDIO_ID"; 
+            externalType = NUMBER; 
+            name = studioID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (studioID, name, entityName, parentStudioID); 
+    className = "com.apple.itunes.store.Studio"; 
+    classProperties = (name, entityName, parent); 
+    externalName = STUDIO; 
+    fetchSpecificationDictionary = {}; 
+    name = Paramount; 
+    parent = Studio; 
+    primaryKeyAttributes = (studioID); 
+    relationships = (
+        {
+            destination = Paramount; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = studioID; sourceAttribute = parentStudioID; }); 
+            name = parent; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'Paramount')"; 
+}

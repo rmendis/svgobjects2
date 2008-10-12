@@ -1,0 +1,18 @@
+MenuItem: MenuItem {
+	title = menuTitle;
+	index = index;
+}
+
+Menulink: WXHyperlink {
+	action = list;
+}
+
+PageTemplate1: PageTemplate {
+	title = "Music";
+}
+
+Repetition1: WORepetition {
+	item = visibleEntityName;
+	list = visibleEntityNames;
+	index = index;
+}

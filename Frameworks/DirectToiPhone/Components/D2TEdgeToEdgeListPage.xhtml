@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><wo:WOString value="[pageTitle]" /></title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<link rel="stylesheet" href="/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/EdgeToEdge.css" type="text/css" media="screen"/>
+	<script type="application/x-javascript" src="/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/prototype.js"></script>
+</head>
+<body>    
+    <h1 id="pageTitle"><wo:WOString value="[pageTitle]" /></h1>
+    <wo:WOHyperlink action="[prevPage]" id="homeButton" class="button"><wo:WOString value="[prevPage.pageTitle]" /></wo:WOHyperlink>
+     <wo:WOHyperlink class="button" action="[toggleSearch]">Search</wo:WOHyperlink>
+
+    <ul id="root" title="[pageTitle]">
+    	<wo:WORepetition list="[displayGroup.displayedObjects]" item="[object]" index="[index]">
+	        <li><wo:WOHyperlink action="[select]" string="[menuTitle]"></wo:WOHyperlink></li>
+        </wo:WORepetition>
+    </ul>
+    
+    <wo:WOConditional condition="[showSearchdialog]">
+    <wo:WOForm id="searchForm" class="dialog" action="[search]" method="POST">
+		<fieldset>
+	      		<h1>Search</h1>
+	      		<a id="leftButton" class="button" type="cancel">Cancel</a>
+	      		<a id="goButton" class="button" type="submit">Search</a>
+	      		<wo:WOTextField name="search" class="search" value="[searchString]" />
+	    </fieldset>
+	</wo:WOForm>
+	</wo:WOConditional>
+    
+</body>
+</html>

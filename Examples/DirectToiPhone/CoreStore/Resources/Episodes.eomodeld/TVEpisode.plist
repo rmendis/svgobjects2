@@ -1,0 +1,82 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = detail; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 2095; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = "EPISODE_ID"; 
+            externalType = NUMBER; 
+            name = episodeID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "RELEASE_DATE"; 
+            externalType = DATE; 
+            name = releaseDate; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSCalendarDate; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "SEASON_ID"; 
+            externalType = NUMBER; 
+            name = seasonID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (episodeID, title, releaseDate, detail, entityName, seasonID); 
+    className = "com.apple.itunes.store.Episode"; 
+    classProperties = (title, releaseDate, detail, entityName, season, products); 
+    externalName = EPISODE; 
+    fetchSpecificationDictionary = {}; 
+    name = TVEpisode; 
+    parent = Episode; 
+    primaryKeyAttributes = (episodeID); 
+    relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = DigitalTVEpisode; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = episodeID; }); 
+            name = products; 
+            ownsDestination = Y; 
+        }, 
+        {
+            destination = Season; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = seasonID; sourceAttribute = seasonID; }); 
+            name = season; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'TVEpisode')"; 
+}

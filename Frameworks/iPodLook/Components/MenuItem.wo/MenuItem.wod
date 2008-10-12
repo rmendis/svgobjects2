@@ -1,0 +1,19 @@
+ArrrowText: WOXMLNode {
+	elementName = "text";
+	"font-family" = "MyriadPro-Black";
+	"font-size" = 20;
+	transform = arrowTransform;
+}
+
+Title: WOTruncatedString {
+	value = ^title;
+        length = 31;
+	escapeHTML = true;
+}
+
+TitleText: WOXMLNode {
+	elementName = "text";
+	"font-family" = "MyriadPro-Bold";
+	"font-size" = 18;
+	transform = textTransform;
+}

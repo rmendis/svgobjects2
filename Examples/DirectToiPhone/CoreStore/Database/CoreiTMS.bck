@@ -1,0 +1,1154 @@
+create table _SYS_APP_FIELDS (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ primaryKey int ,
+ length int ,
+ name char(1023) ,
+ table_id longlong ,
+ calcFormulaValue char(4000) ,
+ outletTypeValue char(100) ,
+ type char(1023) ,
+ notNull int ,
+ defaultValue char(4000) ,
+ indexType int )
+go
+create table _SYS_APP_PREFERENCES (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ key char(4096) INDEX ,
+ value char(4096) ,
+ order long INDEX )
+go
+create table _SYS_APP_TABLES (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ clusteredFieldID longlong ,
+ x float ,
+ width float ,
+ name char(1023) ,
+ primaryKeyFieldID longlong ,
+ height float ,
+ y float )
+go
+delete from _SYS_APPS
+go
+delete from _SYS_GROUPS
+go
+delete from _SYS_PERM
+go
+create table _SYS_QUERY (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ title char(200) INDEX ,
+ sql object )
+go
+delete from _SYS_REPLICATION
+go
+delete from _SYS_USERS
+go
+create table _SYS_VIEWER_PREFERENCES (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ login char(4096) INDEX ,
+ tablename char(4096) INDEX ,
+ key char(4096) UNIQUE derived  login+':'+tablename ,
+ preferenceString char(4096) INDEX )
+go
+create table ARTIST (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ARTIST_ID long NOT NULL INDEX ,
+ ENTITY_NAME char(50) NOT NULL ,
+ NAME char(255) NOT NULL ,
+ FIRST_ARTIST_ID long ,
+ SECOND_ARTIST_ID long ,
+ LABEL_ID long )
+go
+CREATE PRIMARY KEY ARTIST (ARTIST_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'ARTIST' and source_column = 'FIRST_ARTIST_ID' and dest_column = 'ARTIST_ID' and dest_table = 'ARTIST' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('ARTIST', 'FIRST_ARTIST_ID', 'firstArtist', '=', '0', 'ARTIST', 'ARTIST_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'ARTIST' and source_column = 'SECOND_ARTIST_ID' and dest_column = 'ARTIST_ID' and dest_table = 'ARTIST' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('ARTIST', 'SECOND_ARTIST_ID', 'secondArtist', '=', '0', 'ARTIST', 'ARTIST_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'ARTIST' and source_column = 'ARTIST_ID' and dest_column = 'SECOND_ARTIST_ID' and dest_table = 'ARTIST' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('ARTIST', 'ARTIST_ID', 'toArtist0', '=', '1', 'ARTIST', 'SECOND_ARTIST_ID', 0, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'ARTIST' and source_column = 'ARTIST_ID' and dest_column = 'FIRST_ARTIST_ID' and dest_table = 'ARTIST' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('ARTIST', 'ARTIST_ID', 'toArtist', '=', '1', 'ARTIST', 'FIRST_ARTIST_ID', 0, 0) 
+go
+create table ARTIST_COLLABORATION (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ARTIST_ID long NOT NULL INDEX ,
+ COLLABORATION_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY ARTIST_COLLABORATION (ARTIST_ID, COLLABORATION_ID)
+go
+create table ARTIST_GROUP (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ARTIST_ID long NOT NULL INDEX ,
+ GROUP_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY ARTIST_GROUP (ARTIST_ID, GROUP_ID)
+go
+create table ASSET (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ENTITY_NAME char(50) NOT NULL ,
+ TOKEN char(255) NOT NULL ,
+ ASSET_ID long NOT NULL UNIQUE )
+go
+CREATE PRIMARY KEY ASSET (ASSET_ID)
+go
+create table AUDIO_BOOK (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NARRATOR_ID long ,
+ PROVIDER_ID long NOT NULL ,
+ TITLE char(255) NOT NULL ,
+ AUDIO_BOOK_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY AUDIO_BOOK (AUDIO_BOOK_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK' and source_column = 'AUTHOR_ID' and dest_column = 'AUTHOR_ID' and dest_table = 'AUTHOR' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK', 'AUTHOR_ID', 'author', '=', '0', 'AUTHOR', 'AUTHOR_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK' and source_column = 'AUDIO_BOOK_ID' and dest_column = 'AUDIO_BOOK_ID' and dest_table = 'AUDIO_BOOK_AUTHOR' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK', 'AUDIO_BOOK_ID', 'audioBookAuthors', '=', '1', 'AUDIO_BOOK_AUTHOR', 'AUDIO_BOOK_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK' and source_column = 'AUDIO_BOOK_ID' and dest_column = 'AUDIO_BOOK_ID' and dest_table = 'AUDIO_BOOK_CATEGORY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK', 'AUDIO_BOOK_ID', 'audioBookCategories', '=', '1', 'AUDIO_BOOK_CATEGORY', 'AUDIO_BOOK_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK' and source_column = 'NARRATOR_ID' and dest_column = 'AUTHOR_ID' and dest_table = 'AUTHOR' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK', 'NARRATOR_ID', 'narrator', '=', '0', 'AUTHOR', 'AUTHOR_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK' and source_column = 'PROVIDER_ID' and dest_column = 'PROVIDER_ID' and dest_table = 'PROVIDER' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK', 'PROVIDER_ID', 'provider', '=', '0', 'PROVIDER', 'PROVIDER_ID', 1, 0) 
+go
+create table AUDIO_BOOK_AUTHOR (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ AUTHOR_ID long NOT NULL INDEX ,
+ AUDIO_BOOK_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY AUDIO_BOOK_AUTHOR (AUTHOR_ID, AUDIO_BOOK_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK_AUTHOR' and source_column = 'AUDIO_BOOK_ID' and dest_column = 'AUDIO_BOOK_ID' and dest_table = 'AUDIO_BOOK' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK_AUTHOR', 'AUDIO_BOOK_ID', 'audioBook', '=', '0', 'AUDIO_BOOK', 'AUDIO_BOOK_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK_AUTHOR' and source_column = 'AUTHOR_ID' and dest_column = 'AUTHOR_ID' and dest_table = 'AUTHOR' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK_AUTHOR', 'AUTHOR_ID', 'author', '=', '0', 'AUTHOR', 'AUTHOR_ID', 1, 0) 
+go
+create table AUDIO_BOOK_CATEGORY (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ CATEGORY_ID long NOT NULL INDEX ,
+ AUDIO_BOOK_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY AUDIO_BOOK_CATEGORY (CATEGORY_ID, AUDIO_BOOK_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK_CATEGORY' and source_column = 'AUDIO_BOOK_ID' and dest_column = 'AUDIO_BOOK_ID' and dest_table = 'AUDIO_BOOK' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK_CATEGORY', 'AUDIO_BOOK_ID', 'audioBook', '=', '0', 'AUDIO_BOOK', 'AUDIO_BOOK_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUDIO_BOOK_CATEGORY' and source_column = 'CATEGORY_ID' and dest_column = 'CATEGORY_ID' and dest_table = 'CATEGORY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUDIO_BOOK_CATEGORY', 'CATEGORY_ID', 'category', '=', '0', 'CATEGORY', 'CATEGORY_ID', 1, 0) 
+go
+create table AUTHOR (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ AUTHOR_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY AUTHOR (AUTHOR_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUTHOR' and source_column = 'AUTHOR_ID' and dest_column = 'AUTHOR_ID' and dest_table = 'AUDIO_BOOK_AUTHOR' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUTHOR', 'AUTHOR_ID', 'toAudio_Book_Author', '=', '0', 'AUDIO_BOOK_AUTHOR', 'AUTHOR_ID', 0, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'AUTHOR' and source_column = 'AUTHOR_ID' and dest_column = 'NARRATOR_ID' and dest_table = 'AUDIO_BOOK' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('AUTHOR', 'AUTHOR_ID', 'toAudio_Book', '=', '1', 'AUDIO_BOOK', 'NARRATOR_ID', 0, 0) 
+go
+create table BOX_SET (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ARTIST_ID long NOT NULL ,
+ GENRE_ID long NOT NULL ,
+ LABEL_ID long NOT NULL ,
+ TITLE char(255) NOT NULL ,
+ BOX_SET_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY BOX_SET (BOX_SET_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'BOX_SET' and source_column = 'BOX_SET_ID' and dest_column = 'BOX_SET_ID' and dest_table = 'BOX_SET_PLAYLIST' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('BOX_SET', 'BOX_SET_ID', 'boxSetPlaylists', '=', '1', 'BOX_SET_PLAYLIST', 'BOX_SET_ID', 0, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'BOX_SET' and source_column = 'GENRE_ID' and dest_column = 'GENRE_ID' and dest_table = 'GENRE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('BOX_SET', 'GENRE_ID', 'genre', '=', '0', 'GENRE', 'GENRE_ID', 0, 0) 
+go
+create table BOX_SET_PLAYLIST (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ PLAYLIST_ID long NOT NULL INDEX ,
+ BOX_SET_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY BOX_SET_PLAYLIST (PLAYLIST_ID, BOX_SET_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'BOX_SET_PLAYLIST' and source_column = 'BOX_SET_ID' and dest_column = 'BOX_SET_ID' and dest_table = 'BOX_SET' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('BOX_SET_PLAYLIST', 'BOX_SET_ID', 'boxSet', '=', '0', 'BOX_SET', 'BOX_SET_ID', 0, 0) 
+go
+create table CATEGORY (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ PARENT_CATEGORY_ID long ,
+ CATEGORY_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY CATEGORY (CATEGORY_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'CATEGORY' and source_column = 'CATEGORY_ID' and dest_column = 'CATEGORY_ID' and dest_table = 'AUDIO_BOOK_CATEGORY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('CATEGORY', 'CATEGORY_ID', 'audioBookCategories', '=', '1', 'AUDIO_BOOK_CATEGORY', 'CATEGORY_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'CATEGORY' and source_column = 'PARENT_CATEGORY_ID' and dest_column = 'CATEGORY_ID' and dest_table = 'CATEGORY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('CATEGORY', 'PARENT_CATEGORY_ID', 'parent', '=', '0', 'CATEGORY', 'CATEGORY_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'CATEGORY' and source_column = 'CATEGORY_ID' and dest_column = 'PARENT_CATEGORY_ID' and dest_table = 'CATEGORY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('CATEGORY', 'CATEGORY_ID', 'subCategories', '=', '1', 'CATEGORY', 'PARENT_CATEGORY_ID', 1, 0) 
+go
+create table COMPOSER (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ COMPOSER_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY COMPOSER (COMPOSER_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'COMPOSER' and source_column = 'COMPOSER_ID' and dest_column = 'COMPOSER_ID' and dest_table = 'SONG_COMPOSER' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('COMPOSER', 'COMPOSER_ID', 'composerSongs', '=', '1', 'SONG_COMPOSER', 'COMPOSER_ID', 0, 0) 
+go
+create table COUNTRY (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ COUNTRY_ID long NOT NULL INDEX ,
+ STORE_ID long )
+go
+CREATE PRIMARY KEY COUNTRY (COUNTRY_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'COUNTRY' and source_column = 'storeID' and dest_column = 'STORE_ID' and dest_table = 'STORE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('COUNTRY', 'storeID', 'store', '=', '0', 'STORE', 'STORE_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'COUNTRY' and source_column = 'COUNTRY_ID' and dest_column = 'COUNTRY_ID' and dest_table = 'COUNTRY_LANGUAGE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('COUNTRY', 'COUNTRY_ID', 'countryLanguages', '=', '1', 'COUNTRY_LANGUAGE', 'COUNTRY_ID', 1, 0) 
+go
+create table COUNTRY_LANGUAGE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ COUNTRY_ID long NOT NULL INDEX ,
+ LANGUAGE_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY COUNTRY_LANGUAGE (COUNTRY_ID, LANGUAGE_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'COUNTRY_LANGUAGE' and source_column = 'COUNTRY_ID' and dest_column = 'COUNTRY_ID' and dest_table = 'COUNTRY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('COUNTRY_LANGUAGE', 'COUNTRY_ID', 'country', '=', '0', 'COUNTRY', 'COUNTRY_ID', 1, 0) 
+go
+create table CURRENCY (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ CURRENCY_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY CURRENCY (CURRENCY_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'CURRENCY' and source_column = 'CURRENCY_ID' and dest_column = 'CURRENCY_ID' and dest_table = 'STORE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('CURRENCY', 'CURRENCY_ID', 'toStore', '=', '1', 'STORE', 'CURRENCY_ID', 0, 0) 
+go
+create table EO_PK_TABLE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ PK long ,
+ NAME char(40) UNIQUE )
+go
+CREATE PRIMARY KEY EO_PK_TABLE (NAME)
+go
+create table EPISODE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ TITLE char(4095) ,
+ ENTITY_NAME char(50) NOT NULL ,
+ RELEASE_DATE datetime NOT NULL ,
+ PODCAST_ID long ,
+ SEASON_ID long ,
+ EPISODE_ID long NOT NULL UNIQUE )
+go
+CREATE PRIMARY KEY EPISODE (EPISODE_ID)
+go
+create table GENRE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ PARENT_GENRE_ID long ,
+ GENRE_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY GENRE (GENRE_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'GENRE' and source_column = 'GENRE_ID' and dest_column = 'GENRE_ID' and dest_table = 'PLAYLIST_GENRE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('GENRE', 'GENRE_ID', 'genrePlaylists', '=', '1', 'PLAYLIST_GENRE', 'GENRE_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'GENRE' and source_column = 'PARENT_GENRE_ID' and dest_column = 'GENRE_ID' and dest_table = 'GENRE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('GENRE', 'PARENT_GENRE_ID', 'parent', '=', '0', 'GENRE', 'GENRE_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'GENRE' and source_column = 'GENRE_ID' and dest_column = 'PARENT_GENRE_ID' and dest_table = 'GENRE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('GENRE', 'GENRE_ID', 'subGenres', '=', '1', 'GENRE', 'PARENT_GENRE_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'GENRE' and source_column = 'GENRE_ID' and dest_column = 'GENRE_ID' and dest_table = 'BOX_SET' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('GENRE', 'GENRE_ID', 'toBox_Set', '=', '1', 'BOX_SET', 'GENRE_ID', 0, 0) 
+go
+create table LABEL (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ENTITY_NAME char(50) NOT NULL ,
+ NAME char(255) NOT NULL ,
+ PARENT_LABEL_ID long ,
+ LABEL_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY LABEL (LABEL_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'LABEL' and source_column = 'PARENT_LABEL_ID' and dest_column = 'LABEL_ID' and dest_table = 'LABEL' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('LABEL', 'PARENT_LABEL_ID', 'parent', '=', '0', 'LABEL', 'LABEL_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'LABEL' and source_column = 'LABEL_ID' and dest_column = 'PARENT_LABEL_ID' and dest_table = 'LABEL' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('LABEL', 'LABEL_ID', 'toLabel', '=', '1', 'LABEL', 'PARENT_LABEL_ID', 0, 0) 
+go
+create table LANGUAGE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ENTITY_NAME char(255) NOT NULL ,
+ NAME char(255) NOT NULL ,
+ LANGUAGE_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY LANGUAGE (LANGUAGE_ID)
+go
+create table MUSIC_VIDEO (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ARTIST_ID long ,
+ GENRE_ID long NOT NULL ,
+ LABEL_ID long NOT NULL ,
+ LANGUAGE_ID long ,
+ TITLE char(255) NOT NULL ,
+ VIDEO_ID long NOT NULL UNIQUE )
+go
+CREATE PRIMARY KEY MUSIC_VIDEO (VIDEO_ID)
+go
+create table PARENTAL_ADVISORY (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ TYPE char(50) NOT NULL ,
+ PARENTAL_ADVISORY_ID long NOT NULL UNIQUE )
+go
+CREATE PRIMARY KEY PARENTAL_ADVISORY (PARENTAL_ADVISORY_ID)
+go
+create table PLAYLIST (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ARTIST_ID long ,
+ ENTITY_NAME char(50) NOT NULL ,
+ LABEL_ID long NOT NULL ,
+ PARENTAL_ADVISORY_ID long ,
+ PLAYLIST_ID long NOT NULL INDEX ,
+ TITLE char(255) NOT NULL ,
+ GENRE_ID long ,
+ LANGUAGE_ID long ,
+ COVER_ART_ID long ,
+ THUMBNAIL_ID long )
+go
+CREATE PRIMARY KEY PLAYLIST (PLAYLIST_ID)
+go
+create table PLAYLIST_GENRE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ GENRE_ID long NOT NULL INDEX ,
+ PLAYLIST_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY PLAYLIST_GENRE (GENRE_ID, PLAYLIST_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'PLAYLIST_GENRE' and source_column = 'GENRE_ID' and dest_column = 'GENRE_ID' and dest_table = 'GENRE' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('PLAYLIST_GENRE', 'GENRE_ID', 'genre', '=', '0', 'GENRE', 'GENRE_ID', 1, 0) 
+go
+create table PODCAST (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ PODCAST_ID long NOT NULL INDEX ,
+ DETAIL char(2095) ,
+ TITLE char(255) )
+go
+CREATE PRIMARY KEY PODCAST (PODCAST_ID)
+go
+create table PRODUCT (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ CONTENT_ID long NOT NULL ,
+ ENTITY_NAME char(50) NOT NULL ,
+ PRICE money NOT NULL ,
+ STORE_ID long NOT NULL ,
+ PRODUCT_ID long NOT NULL UNIQUE )
+go
+CREATE PRIMARY KEY PRODUCT (PRODUCT_ID)
+go
+create table PROVIDER (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ NAME char(255) NOT NULL ,
+ PROVIDER_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY PROVIDER (PROVIDER_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'PROVIDER' and source_column = 'PROVIDER_ID' and dest_column = 'PROVIDER_ID' and dest_table = 'AUDIO_BOOK' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('PROVIDER', 'PROVIDER_ID', 'toAudio_Book', '=', '1', 'AUDIO_BOOK', 'PROVIDER_ID', 0, 0) 
+go
+create table SEASON (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ DETAIL char(4095) NOT NULL ,
+ SEASON_ID long NOT NULL INDEX ,
+ SHOW_ID long NOT NULL ,
+ TITLE char(255) ,
+ NO long NOT NULL )
+go
+CREATE PRIMARY KEY SEASON (SEASON_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'SEASON' and source_column = 'SHOW_ID' and dest_column = 'SHOW_ID' and dest_table = 'TV_SHOW' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('SEASON', 'SHOW_ID', 'show', '=', '0', 'TV_SHOW', 'SHOW_ID', 0, 0) 
+go
+create table SHORT_FILM (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ STUDIO_ID long NOT NULL ,
+ TITLE char(255) NOT NULL ,
+ VIDEO_ID long NOT NULL UNIQUE )
+go
+CREATE PRIMARY KEY SHORT_FILM (VIDEO_ID)
+go
+create table SONG (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ TITLE char(255) NOT NULL ,
+ TRACK_ID long NOT NULL INDEX ,
+ PLAYLIST_ID long NOT NULL INDEX ,
+ ARTIST_ID long NOT NULL INDEX ,
+ NO long NOT NULL )
+go
+CREATE PRIMARY KEY SONG (TRACK_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'SONG' and source_column = 'TRACK_ID' and dest_column = 'TRACK_ID' and dest_table = 'SONG_COMPOSER' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('SONG', 'TRACK_ID', 'toSong_Composer', '=', '0', 'SONG_COMPOSER', 'TRACK_ID', 0, 0) 
+go
+create table SONG_COMPOSER (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ COMPOSER_ID long NOT NULL INDEX ,
+ TRACK_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY SONG_COMPOSER (COMPOSER_ID, TRACK_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'SONG_COMPOSER' and source_column = 'COMPOSER_ID' and dest_column = 'COMPOSER_ID' and dest_table = 'COMPOSER' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('SONG_COMPOSER', 'COMPOSER_ID', 'composer', '=', '0', 'COMPOSER', 'COMPOSER_ID', 0, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'SONG_COMPOSER' and source_column = 'TRACK_ID' and dest_column = 'TRACK_ID' and dest_table = 'SONG' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('SONG_COMPOSER', 'TRACK_ID', 'song', '=', '0', 'SONG', 'TRACK_ID', 0, 0) 
+go
+create table STORE (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ CURRENCY_ID long NOT NULL ,
+ NAME char(255) NOT NULL ,
+ STORE_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY STORE (STORE_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'STORE' and source_column = 'CURRENCY_ID' and dest_column = 'CURRENCY_ID' and dest_table = 'CURRENCY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('STORE', 'CURRENCY_ID', 'currency', '=', '0', 'CURRENCY', 'CURRENCY_ID', 1, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'STORE' and source_column = 'storeID' and dest_column = 'STORE_ID' and dest_table = 'COUNTRY' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('STORE', 'storeID', 'countries', '=', '1', 'COUNTRY', 'STORE_ID', 1, 0) 
+go
+create table STORE_ALBUM (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ PRODUCT_ID long NOT NULL INDEX ,
+ STORE_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY STORE_ALBUM (PRODUCT_ID, STORE_ID)
+go
+create table STUDIO (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ ENTITY_NAME char(50) NOT NULL ,
+ NAME char(255) NOT NULL ,
+ PARENT_STUDIO_ID long ,
+ STUDIO_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY STUDIO (STUDIO_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'STUDIO' and source_column = 'PARENT_STUDIO_ID' and dest_column = 'STUDIO_ID' and dest_table = 'STUDIO' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('STUDIO', 'PARENT_STUDIO_ID', 'parent', '=', '0', 'STUDIO', 'STUDIO_ID', 0, 0) 
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'STUDIO' and source_column = 'STUDIO_ID' and dest_column = 'PARENT_STUDIO_ID' and dest_table = 'STUDIO' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('STUDIO', 'STUDIO_ID', 'toStudio', '=', '1', 'STUDIO', 'PARENT_STUDIO_ID', 0, 0) 
+go
+create table TV_SHOW (
+ _rowid longlong NOT NULL UNIQUE ,
+ _timestamp timestamp ,
+ _version long ,
+ TITLE char(4095) NOT NULL ,
+ STUDIO_ID long NOT NULL ,
+ SHOW_ID long NOT NULL INDEX )
+go
+CREATE PRIMARY KEY TV_SHOW (SHOW_ID)
+go
+DELETE FROM _SYS_RELATIONSHIP WHERE source_table = 'TV_SHOW' and source_column = 'SHOW_ID' and dest_column = 'SHOW_ID' and dest_table = 'SEASON' 
+go
+INSERT INTO _SYS_RELATIONSHIP (source_table, source_column, relationshipName, operator, one_to_many, dest_table, dest_column, cascade_delete, block_delete) VALUES ('TV_SHOW', 'SHOW_ID', 'seasons', '=', '1', 'SEASON', 'SHOW_ID', 0, 0) 
+go
+TABLE _SYS_APP_FIELDS
+_rowid, _timestamp, _version, calcFormulaValue, defaultValue, indexType, length, name, notNull, outletTypeValue, primaryKey, table_id, type
+'2' , '203892240.87422001' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '1' , 'longlong' 
+'4' , '203892240.87510499' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '1' , 'timestamp' 
+'6' , '203892240.87585300' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '1' , 'long' 
+'8' , '203892240.87658301' , '17' , '' , '' , '0' , '4' , 'PK' , '0' , 'automatic' , '0' , '1' , 'long' 
+'10' , '203892240.87730398' , '17' , '' , '' , '2' , '40' , 'NAME' , '0' , 'automatic' , '1' , '1' , 'char' 
+'12' , '203892240.90807300' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '2' , 'longlong' 
+'14' , '203892240.90882599' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '2' , 'timestamp' 
+'16' , '203892240.90944701' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '2' , 'long' 
+'18' , '203892240.91262000' , '17' , '' , '' , '1' , '4' , 'ARTIST_ID' , '1' , 'automatic' , '0' , '2' , 'long' 
+'22' , '203892240.91200301' , '17' , '' , '' , '1' , '4' , 'PLAYLIST_ID' , '1' , 'automatic' , '0' , '2' , 'long' 
+'24' , '203892240.91006198' , '17' , '' , '' , '0' , '255' , 'TITLE' , '1' , 'automatic' , '0' , '2' , 'char' 
+'26' , '203892240.91065999' , '17' , '' , '' , '1' , '4' , 'TRACK_ID' , '1' , 'automatic' , '1' , '2' , 'long' 
+'28' , '203892240.96298399' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '3' , 'longlong' 
+'30' , '203892240.96381199' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '3' , 'timestamp' 
+'32' , '203892240.96454301' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '3' , 'long' 
+'34' , '203892240.96526301' , '17' , '' , '' , '0' , '4' , 'ARTIST_ID' , '0' , 'automatic' , '0' , '3' , 'long' 
+'36' , '203892240.96600899' , '17' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '3' , 'char' 
+'38' , '203892240.96674001' , '17' , '' , '' , '0' , '4' , 'LABEL_ID' , '1' , 'automatic' , '0' , '3' , 'long' 
+'40' , '203892240.96745899' , '17' , '' , '' , '0' , '4' , 'PARENTAL_ADVISORY_ID' , '0' , 'automatic' , '0' , '3' , 'long' 
+'42' , '203892240.96892699' , '17' , '' , '' , '0' , '255' , 'TITLE' , '1' , 'automatic' , '0' , '3' , 'char' 
+'44' , '203892240.96818599' , '17' , '' , '' , '1' , '4' , 'PLAYLIST_ID' , '1' , 'automatic' , '1' , '3' , 'long' 
+'46' , '203892241.00763300' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '4' , 'longlong' 
+'48' , '203892241.00826600' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '4' , 'timestamp' 
+'50' , '203892241.00886398' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '4' , 'long' 
+'52' , '203892241.00946500' , '17' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '4' , 'char' 
+'54' , '203892241.01006800' , '17' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '4' , 'char' 
+'56' , '203892241.01067298' , '17' , '' , '' , '0' , '4' , 'PARENT_LABEL_ID' , '0' , 'automatic' , '0' , '4' , 'long' 
+'58' , '203892241.01125899' , '17' , '' , '' , '1' , '4' , 'LABEL_ID' , '1' , 'automatic' , '1' , '4' , 'long' 
+'60' , '203892241.04166799' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '5' , 'longlong' 
+'62' , '203892241.04419699' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '5' , 'timestamp' 
+'64' , '203892241.04507199' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '5' , 'long' 
+'66' , '203892241.04814198' , '17' , '' , '' , '1' , '4' , 'ARTIST_ID' , '1' , 'automatic' , '1' , '5' , 'long' 
+'68' , '203892241.05029100' , '17' , '' , '' , '1' , '4' , 'COLLABORATION_ID' , '1' , 'automatic' , '1' , '5' , 'long' 
+'70' , '203892241.07356000' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '6' , 'longlong' 
+'72' , '203892241.07450699' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '6' , 'timestamp' 
+'74' , '203892241.07525101' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '6' , 'long' 
+'76' , '203892241.07599699' , '17' , '' , '' , '1' , '4' , 'ARTIST_ID' , '1' , 'automatic' , '1' , '6' , 'long' 
+'78' , '203892241.07675001' , '17' , '' , '' , '1' , '4' , 'GROUP_ID' , '1' , 'automatic' , '1' , '6' , 'long' 
+'90' , '203892241.12445700' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '8' , 'longlong' 
+'92' , '203892241.12517199' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '8' , 'timestamp' 
+'94' , '203892241.12583199' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '8' , 'long' 
+'96' , '203892241.12648901' , '17' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '8' , 'char' 
+'98' , '203892241.12733998' , '17' , '' , '' , '0' , '4' , 'PARENT_GENRE_ID' , '0' , 'automatic' , '0' , '8' , 'long' 
+'100' , '203892241.12802198' , '17' , '' , '' , '1' , '4' , 'GENRE_ID' , '1' , 'automatic' , '1' , '8' , 'long' 
+'102' , '203892241.17408099' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '9' , 'longlong' 
+'104' , '203892241.17486900' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '9' , 'timestamp' 
+'106' , '203892241.17554399' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '9' , 'long' 
+'108' , '203892241.17619800' , '17' , '' , '' , '0' , '50' , 'TYPE' , '1' , 'automatic' , '0' , '9' , 'char' 
+'110' , '203892241.17689699' , '17' , '' , '' , '2' , '4' , 'PARENTAL_ADVISORY_ID' , '1' , 'automatic' , '1' , '9' , 'long' 
+'112' , '203892241.20756399' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '10' , 'longlong' 
+'114' , '203892241.20840498' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '10' , 'timestamp' 
+'116' , '203892241.20906201' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '10' , 'long' 
+'118' , '203892241.20971301' , '17' , '' , '' , '1' , '4' , 'GENRE_ID' , '1' , 'automatic' , '1' , '10' , 'long' 
+'120' , '203892241.21037700' , '17' , '' , '' , '1' , '4' , 'PLAYLIST_ID' , '1' , 'automatic' , '1' , '10' , 'long' 
+'122' , '203892241.24303498' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '11' , 'longlong' 
+'124' , '203892241.24382498' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '11' , 'timestamp' 
+'126' , '203892241.24473801' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '11' , 'long' 
+'128' , '203892241.24621701' , '17' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '11' , 'char' 
+'130' , '203892241.24931800' , '18' , '' , '' , '0' , '4' , 'LABEL_ID' , '0' , 'automatic' , '0' , '11' , 'long' 
+'132' , '203892241.24702599' , '17' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '11' , 'char' 
+'134' , '203892241.24782699' , '17' , '' , '' , '0' , '4' , 'FIRST_ARTIST_ID' , '0' , 'automatic' , '0' , '11' , 'long' 
+'136' , '203892241.24858901' , '17' , '' , '' , '0' , '4' , 'SECOND_ARTIST_ID' , '0' , 'automatic' , '0' , '11' , 'long' 
+'138' , '203892241.24549400' , '17' , '' , '' , '1' , '4' , 'ARTIST_ID' , '1' , 'automatic' , '1' , '11' , 'long' 
+'140' , '203892241.29185399' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '12' , 'longlong' 
+'142' , '203892241.29256999' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '12' , 'timestamp' 
+'144' , '203892241.29318299' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '12' , 'long' 
+'146' , '203892241.29377898' , '17' , '' , '' , '1' , '4' , 'CATEGORY_ID' , '1' , 'automatic' , '1' , '12' , 'long' 
+'148' , '203892241.29445001' , '17' , '' , '' , '1' , '4' , 'AUDIO_BOOK_ID' , '1' , 'automatic' , '1' , '12' , 'long' 
+'150' , '203892241.32427001' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '13' , 'longlong' 
+'152' , '203892241.32503199' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '13' , 'timestamp' 
+'154' , '203892241.32571101' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '13' , 'long' 
+'156' , '203892241.32636299' , '17' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '13' , 'char' 
+'158' , '203892241.32701298' , '17' , '' , '' , '1' , '4' , 'AUTHOR_ID' , '1' , 'automatic' , '1' , '13' , 'long' 
+'160' , '203892241.35931599' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '14' , 'longlong' 
+'162' , '203892241.36009699' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '14' , 'timestamp' 
+'164' , '203892241.36083799' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '14' , 'long' 
+'166' , '203892241.36181900' , '17' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '14' , 'char' 
+'168' , '203892241.36278000' , '17' , '' , '' , '0' , '4' , 'PARENT_CATEGORY_ID' , '0' , 'automatic' , '0' , '14' , 'long' 
+'170' , '203892241.36351400' , '17' , '' , '' , '1' , '4' , 'CATEGORY_ID' , '1' , 'automatic' , '1' , '14' , 'long' 
+'172' , '203892241.41428101' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '15' , 'longlong' 
+'174' , '203892241.41553899' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '15' , 'timestamp' 
+'176' , '203892241.41639399' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '15' , 'long' 
+'178' , '203892241.41746699' , '17' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '15' , 'char' 
+'180' , '203892241.41833999' , '17' , '' , '' , '1' , '4' , 'PROVIDER_ID' , '1' , 'automatic' , '1' , '15' , 'long' 
+'182' , '203892241.46074301' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '16' , 'longlong' 
+'184' , '203892241.46152800' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '16' , 'timestamp' 
+'186' , '203892241.46245101' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '16' , 'long' 
+'188' , '203892241.46319499' , '17' , '' , '' , '1' , '4' , 'AUTHOR_ID' , '1' , 'automatic' , '1' , '16' , 'long' 
+'190' , '203892241.46391901' , '17' , '' , '' , '1' , '4' , 'AUDIO_BOOK_ID' , '1' , 'automatic' , '1' , '16' , 'long' 
+'192' , '203892241.51040101' , '17' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '17' , 'longlong' 
+'194' , '203892241.51117399' , '17' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '17' , 'timestamp' 
+'196' , '203892241.51196500' , '17' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '17' , 'long' 
+'198' , '203892241.51279199' , '17' , '' , '' , '0' , '4' , 'NARRATOR_ID' , '0' , 'automatic' , '0' , '17' , 'long' 
+'200' , '203892241.51396301' , '17' , '' , '' , '0' , '4' , 'PROVIDER_ID' , '1' , 'automatic' , '0' , '17' , 'long' 
+'202' , '203892241.51482498' , '17' , '' , '' , '0' , '255' , 'TITLE' , '1' , 'automatic' , '0' , '17' , 'char' 
+'204' , '203892241.51559400' , '17' , '' , '' , '1' , '4' , 'AUDIO_BOOK_ID' , '1' , 'automatic' , '1' , '17' , 'long' 
+'205' , '203892240.96964699' , '15' , '' , '' , '0' , '4' , 'GENRE_ID' , '0' , 'automatic' , '0' , '3' , 'long' 
+'207' , '203892241.56775000' , '15' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '18' , 'longlong' 
+'209' , '203892241.56851300' , '15' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '18' , 'timestamp' 
+'211' , '203892241.56932398' , '15' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '18' , 'long' 
+'213' , '203892241.57113298' , '15' , '' , '' , '0' , '255' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '18' , 'char' 
+'215' , '203892241.57201400' , '15' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '18' , 'char' 
+'217' , '203892241.57281100' , '15' , '' , '' , '1' , '4' , 'LANGUAGE_ID' , '1' , 'automatic' , '1' , '18' , 'long' 
+'219' , '203892241.61570400' , '15' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '19' , 'longlong' 
+'221' , '203892241.61674600' , '15' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '19' , 'timestamp' 
+'223' , '203892241.61763501' , '15' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '19' , 'long' 
+'225' , '203892241.61849701' , '15' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '19' , 'char' 
+'227' , '203892400.06766799' , '16' , '' , '' , '0' , '4' , 'STORE_ID' , '0' , 'automatic' , '0' , '19' , 'long' 
+'229' , '203892241.62007701' , '15' , '' , '' , '1' , '4' , 'COUNTRY_ID' , '1' , 'automatic' , '1' , '19' , 'long' 
+'231' , '203892241.66046500' , '15' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '20' , 'longlong' 
+'233' , '203892241.66123598' , '15' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '20' , 'timestamp' 
+'235' , '203892241.66200199' , '15' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '20' , 'long' 
+'237' , '203892241.66273400' , '15' , '' , '' , '1' , '4' , 'COUNTRY_ID' , '1' , 'automatic' , '1' , '20' , 'long' 
+'239' , '203892241.66345200' , '15' , '' , '' , '1' , '4' , 'LANGUAGE_ID' , '1' , 'automatic' , '1' , '20' , 'long' 
+'241' , '203892241.69303798' , '15' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '21' , 'longlong' 
+'243' , '203892241.69374099' , '15' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '21' , 'timestamp' 
+'245' , '203892241.69437199' , '15' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '21' , 'long' 
+'247' , '203892241.69503501' , '15' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '21' , 'char' 
+'249' , '203892241.69563499' , '15' , '' , '' , '1' , '4' , 'CURRENCY_ID' , '1' , 'automatic' , '1' , '21' , 'long' 
+'251' , '203892241.72815799' , '15' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '22' , 'longlong' 
+'253' , '203892241.72893300' , '15' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '22' , 'timestamp' 
+'255' , '203892241.72966399' , '15' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '22' , 'long' 
+'257' , '203892241.73046401' , '15' , '' , '' , '0' , '4' , 'CURRENCY_ID' , '1' , 'automatic' , '0' , '22' , 'long' 
+'259' , '203892241.73119300' , '15' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '22' , 'char' 
+'261' , '203892400.03354799' , '16' , '' , '' , '1' , '4' , 'STORE_ID' , '1' , 'automatic' , '1' , '22' , 'long' 
+'280' , '203892241.76060500' , '14' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '25' , 'longlong' 
+'282' , '203892241.76136699' , '14' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '25' , 'timestamp' 
+'284' , '203892241.76215300' , '14' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '25' , 'long' 
+'286' , '203892241.76288700' , '14' , '' , '' , '1' , '4' , 'PRODUCT_ID' , '1' , 'automatic' , '1' , '25' , 'long' 
+'288' , '203892241.76363501' , '14' , '' , '' , '1' , '4' , 'STORE_ID' , '1' , 'automatic' , '1' , '25' , 'long' 
+'303' , '203892241.79630699' , '11' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '27' , 'longlong' 
+'305' , '203892241.79711198' , '11' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '27' , 'timestamp' 
+'307' , '203892241.79805499' , '11' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '27' , 'long' 
+'309' , '203892241.79959198' , '11' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '27' , 'char' 
+'311' , '203892241.80031299' , '11' , '' , '' , '0' , '8' , 'PRICE' , '1' , 'automatic' , '0' , '27' , 'money' 
+'313' , '203892241.79886400' , '12' , '' , '' , '0' , '4' , 'CONTENT_ID' , '1' , 'automatic' , '0' , '27' , 'long' 
+'329' , '203892241.82817199' , '11' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '29' , 'longlong' 
+'331' , '203892241.82894998' , '11' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '29' , 'timestamp' 
+'333' , '203892241.82968199' , '11' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '29' , 'long' 
+'335' , '203892241.83044898' , '11' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '29' , 'char' 
+'337' , '203892241.83125001' , '11' , '' , '' , '1' , '4' , 'COMPOSER_ID' , '1' , 'automatic' , '1' , '29' , 'long' 
+'339' , '203892241.86798998' , '11' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '30' , 'longlong' 
+'341' , '203892241.86881300' , '11' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '30' , 'timestamp' 
+'343' , '203892241.86981600' , '11' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '30' , 'long' 
+'345' , '203892241.87054601' , '11' , '' , '' , '1' , '4' , 'COMPOSER_ID' , '1' , 'automatic' , '1' , '30' , 'long' 
+'347' , '203892241.87127700' , '11' , '' , '' , '1' , '4' , 'TRACK_ID' , '1' , 'automatic' , '1' , '30' , 'long' 
+'348' , '203892240.97046598' , '8' , '' , '' , '0' , '4' , 'LANGUAGE_ID' , '0' , 'automatic' , '0' , '3' , 'long' 
+'349' , '203892256.13527700' , '8' , '' , '' , '0' , '4' , 'NO' , '1' , 'automatic' , '0' , '2' , 'long' 
+'352' , '203892241.91162100' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '32' , 'longlong' 
+'354' , '203892241.91243401' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '32' , 'timestamp' 
+'356' , '203892241.91320401' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '32' , 'long' 
+'358' , '203892241.91397300' , '6' , '' , '' , '1' , '4' , 'PLAYLIST_ID' , '1' , 'automatic' , '1' , '32' , 'long' 
+'360' , '203892241.91465398' , '6' , '' , '' , '1' , '4' , 'BOX_SET_ID' , '1' , 'automatic' , '1' , '32' , 'long' 
+'362' , '203892241.94713199' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '33' , 'longlong' 
+'364' , '203892241.94784000' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '33' , 'timestamp' 
+'366' , '203892241.94873899' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '33' , 'long' 
+'368' , '203892241.94944900' , '6' , '' , '' , '0' , '4' , 'ARTIST_ID' , '1' , 'automatic' , '0' , '33' , 'long' 
+'370' , '203892241.95008999' , '6' , '' , '' , '0' , '4' , 'GENRE_ID' , '1' , 'automatic' , '0' , '33' , 'long' 
+'372' , '203892241.95068800' , '6' , '' , '' , '0' , '4' , 'LABEL_ID' , '1' , 'automatic' , '0' , '33' , 'long' 
+'374' , '203892241.95129099' , '6' , '' , '' , '0' , '255' , 'TITLE' , '1' , 'automatic' , '0' , '33' , 'char' 
+'376' , '203892241.95188900' , '6' , '' , '' , '1' , '4' , 'BOX_SET_ID' , '1' , 'automatic' , '1' , '33' , 'long' 
+'378' , '203892241.98052799' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '34' , 'longlong' 
+'380' , '203892241.98123499' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '34' , 'timestamp' 
+'382' , '203892241.98189199' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '34' , 'long' 
+'384' , '203892241.98254600' , '6' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '34' , 'char' 
+'386' , '203892241.98321700' , '6' , '' , '' , '0' , '255' , 'NAME' , '1' , 'automatic' , '0' , '34' , 'char' 
+'388' , '203892241.98389500' , '6' , '' , '' , '0' , '4' , 'PARENT_STUDIO_ID' , '0' , 'automatic' , '0' , '34' , 'long' 
+'390' , '203892241.98451700' , '6' , '' , '' , '1' , '4' , 'STUDIO_ID' , '1' , 'automatic' , '1' , '34' , 'long' 
+'392' , '203892242.01237300' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '35' , 'longlong' 
+'394' , '203892242.01306501' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '35' , 'timestamp' 
+'396' , '203892242.01367300' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '35' , 'long' 
+'398' , '203892242.01427200' , '7' , '' , '' , '0' , '4095' , 'DETAIL' , '1' , 'automatic' , '0' , '35' , 'char' 
+'400' , '203892479.14925199' , '7' , '' , '' , '0' , '4' , 'NO' , '1' , 'automatic' , '0' , '35' , 'long' 
+'402' , '203892242.01607701' , '6' , '' , '' , '0' , '4' , 'SHOW_ID' , '1' , 'automatic' , '0' , '35' , 'long' 
+'404' , '203892242.01548299' , '6' , '' , '' , '1' , '4' , 'SEASON_ID' , '1' , 'automatic' , '1' , '35' , 'long' 
+'406' , '203892242.04629200' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '36' , 'longlong' 
+'408' , '203892242.04697901' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '36' , 'timestamp' 
+'410' , '203892242.04764300' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '36' , 'long' 
+'412' , '203892242.04824099' , '6' , '' , '' , '0' , '4' , 'STUDIO_ID' , '1' , 'automatic' , '0' , '36' , 'long' 
+'414' , '203892242.04884499' , '6' , '' , '' , '0' , '255' , 'TITLE' , '1' , 'automatic' , '0' , '36' , 'char' 
+'416' , '203892242.04944101' , '6' , '' , '' , '2' , '4' , 'VIDEO_ID' , '1' , 'automatic' , '1' , '36' , 'long' 
+'418' , '203892242.07990500' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '37' , 'longlong' 
+'420' , '203892242.08068800' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '37' , 'timestamp' 
+'422' , '203892242.08142700' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '37' , 'long' 
+'424' , '203892242.08238598' , '6' , '' , '' , '0' , '4095' , 'TITLE' , '1' , 'automatic' , '0' , '37' , 'char' 
+'426' , '203892242.08316001' , '6' , '' , '' , '0' , '4' , 'STUDIO_ID' , '1' , 'automatic' , '0' , '37' , 'long' 
+'428' , '203892242.08388701' , '6' , '' , '' , '1' , '4' , 'SHOW_ID' , '1' , 'automatic' , '1' , '37' , 'long' 
+'430' , '203892242.11322400' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '38' , 'longlong' 
+'432' , '203892242.11405900' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '38' , 'timestamp' 
+'434' , '203892242.11473399' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '38' , 'long' 
+'436' , '203892605.14711800' , '7' , '' , '' , '0' , '255' , 'TITLE' , '0' , 'automatic' , '0' , '38' , 'char' 
+'438' , '203892242.11606499' , '6' , '' , '' , '1' , '4' , 'PODCAST_ID' , '1' , 'automatic' , '1' , '38' , 'long' 
+'440' , '203892242.14899599' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '39' , 'longlong' 
+'442' , '203892242.14971900' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '39' , 'timestamp' 
+'444' , '203892242.15031498' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '39' , 'long' 
+'446' , '203892242.15141901' , '6' , '' , '' , '0' , '4' , 'GENRE_ID' , '1' , 'automatic' , '0' , '39' , 'long' 
+'448' , '203892242.15196600' , '6' , '' , '' , '0' , '4' , 'LABEL_ID' , '1' , 'automatic' , '0' , '39' , 'long' 
+'450' , '203892242.15259400' , '6' , '' , '' , '0' , '4' , 'LANGUAGE_ID' , '0' , 'automatic' , '0' , '39' , 'long' 
+'452' , '203892242.15324500' , '6' , '' , '' , '0' , '255' , 'TITLE' , '1' , 'automatic' , '0' , '39' , 'char' 
+'454' , '203892242.15417200' , '6' , '' , '' , '2' , '4' , 'VIDEO_ID' , '1' , 'automatic' , '1' , '39' , 'long' 
+'456' , '203892242.18315398' , '6' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '40' , 'longlong' 
+'458' , '203892242.18390500' , '6' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '40' , 'timestamp' 
+'460' , '203892242.18453198' , '6' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '40' , 'long' 
+'462' , '203892242.18511700' , '6' , '' , '' , '0' , '4095' , 'TITLE' , '0' , 'automatic' , '0' , '40' , 'char' 
+'464' , '203892242.18569699' , '6' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '40' , 'char' 
+'466' , '203892242.18639099' , '6' , '' , '' , '0' , '8' , 'RELEASE_DATE' , '1' , 'automatic' , '0' , '40' , 'datetime' 
+'468' , '203892242.18698200' , '6' , '' , '' , '0' , '4' , 'PODCAST_ID' , '0' , 'automatic' , '0' , '40' , 'long' 
+'470' , '203892242.18751400' , '6' , '' , '' , '0' , '4' , 'SEASON_ID' , '0' , 'automatic' , '0' , '40' , 'long' 
+'472' , '203892242.18804401' , '6' , '' , '' , '2' , '4' , 'EPISODE_ID' , '1' , 'automatic' , '1' , '40' , 'long' 
+'477' , '203892241.80177798' , '4' , '' , '' , '2' , '4' , 'PRODUCT_ID' , '1' , 'automatic' , '1' , '27' , 'long' 
+'479' , '203892242.15086901' , '4' , '' , '' , '0' , '4' , 'ARTIST_ID' , '0' , 'automatic' , '0' , '39' , 'long' 
+'600' , '203892242.01667898' , '3' , '' , '' , '0' , '255' , 'TITLE' , '0' , 'automatic' , '0' , '35' , 'char' 
+'603' , '203892241.80103200' , '3' , '' , '' , '0' , '4' , 'STORE_ID' , '1' , 'automatic' , '0' , '27' , 'long' 
+'605' , '203892242.23516699' , '3' , '' , '' , '2' , '8' , '_rowid' , '1' , 'automatic' , '0' , '42' , 'longlong' 
+'607' , '203892242.23599800' , '3' , '' , '' , '0' , '8' , '_timestamp' , '0' , 'automatic' , '0' , '42' , 'timestamp' 
+'609' , '203892242.23720398' , '3' , '' , '' , '0' , '4' , '_version' , '0' , 'automatic' , '0' , '42' , 'long' 
+'611' , '203892242.23805400' , '3' , '' , '' , '0' , '50' , 'ENTITY_NAME' , '1' , 'automatic' , '0' , '42' , 'char' 
+'613' , '203892242.23882499' , '3' , '' , '' , '0' , '255' , 'TOKEN' , '1' , 'automatic' , '0' , '42' , 'char' 
+'615' , '203892242.23975300' , '3' , '' , '' , '2' , '4' , 'ASSET_ID' , '1' , 'automatic' , '1' , '42' , 'long' 
+'616' , '203892240.97119599' , '2' , '' , '' , '0' , '4' , 'COVER_ART_ID' , '0' , 'automatic' , '0' , '3' , 'long' 
+'617' , '203892240.97191798' , '2' , '' , '' , '0' , '4' , 'THUMBNAIL_ID' , '0' , 'automatic' , '0' , '3' , 'long' 
+'619' , '203892605.14622399' , '1' , '' , '' , '0' , '2095' , 'DETAIL' , '0' , 'automatic' , '0' , '38' , 'char' 
+TABLE _SYS_APP_PREFERENCES
+_rowid, _timestamp, _version, key, order, value
+'1' , '203892516.45834100' , '27' , 'SchemaDatabaseVersion' , '0' , '1' 
+'2' , '136244624.72149759' , '1' , 'SchemaVersion' , '0' , '' 
+'3' , '203892606.08337599' , '39' , 'SchemaTimeStamp' , '0' , '450;2007-06-18 22:50:05 +0200;90102;42;2007-06-18 22:50:06 +0200;619;2007-06-18 22:50:05 +0200' 
+TABLE _SYS_APP_TABLES
+_rowid, _timestamp, _version, clusteredFieldID, height, name, primaryKeyFieldID, width, x, y
+'1' , '203892605.91680300' , '39' , '0' , '250.000000000' , 'EO_PK_TABLE' , NULL, '150.000000000' , '0.000000000' , '0.000000000' 
+'2' , '203892605.38023999' , '39' , '0' , '250.000000000' , 'SONG' , NULL, '150.000000000' , '200.000000000' , '0.000000000' 
+'3' , '203892605.71471899' , '39' , '0' , '250.000000000' , 'PLAYLIST' , NULL, '150.000000000' , '400.000000000' , '0.000000000' 
+'4' , '203892604.84160500' , '39' , '0' , '250.000000000' , 'LABEL' , NULL, '150.000000000' , '0.000000000' , '300.000000000' 
+'5' , '203892605.68034398' , '39' , '0' , '250.000000000' , 'ARTIST_COLLABORATION' , NULL, '150.000000000' , '200.000000000' , '300.000000000' 
+'6' , '203892605.74859500' , '39' , '0' , '250.000000000' , 'ARTIST_GROUP' , NULL, '150.000000000' , '400.000000000' , '300.000000000' 
+'8' , '203892605.07979399' , '39' , '0' , '250.000000000' , 'GENRE' , NULL, '150.000000000' , '200.000000000' , '600.000000000' 
+'9' , '203892605.85208699' , '39' , '0' , '250.000000000' , 'PARENTAL_ADVISORY' , NULL, '150.000000000' , '400.000000000' , '600.000000000' 
+'10' , '203892604.94320801' , '39' , '0' , '250.000000000' , 'PLAYLIST_GENRE' , NULL, '150.000000000' , '0.000000000' , '900.000000000' 
+'11' , '203892605.95327898' , '39' , '0' , '250.000000000' , 'ARTIST' , NULL, '150.000000000' , '200.000000000' , '900.000000000' 
+'12' , '203892606.01664501' , '39' , '0' , '250.000000000' , 'AUDIO_BOOK_CATEGORY' , NULL, '150.000000000' , '400.000000000' , '900.000000000' 
+'13' , '203892605.61434799' , '39' , '0' , '250.000000000' , 'AUTHOR' , NULL, '150.000000000' , '0.000000000' , '1200.000000000' 
+'14' , '203892605.04460299' , '39' , '0' , '250.000000000' , 'CATEGORY' , NULL, '150.000000000' , '200.000000000' , '1200.000000000' 
+'15' , '203892604.91037300' , '39' , '0' , '250.000000000' , 'PROVIDER' , NULL, '150.000000000' , '400.000000000' , '1200.000000000' 
+'16' , '203892605.11286899' , '39' , '0' , '250.000000000' , 'AUDIO_BOOK_AUTHOR' , NULL, '150.000000000' , '0.000000000' , '1500.000000000' 
+'17' , '203892605.41186499' , '39' , '0' , '250.000000000' , 'AUDIO_BOOK' , NULL, '150.000000000' , '200.000000000' , '1500.000000000' 
+'18' , '203892605.59322500' , '35' , '0' , '250.000000000' , 'LANGUAGE' , NULL, '150.000000000' , '0.000000000' , '0.000000000' 
+'19' , '203892605.01133099' , '35' , '0' , '250.000000000' , 'COUNTRY' , NULL, '150.000000000' , '200.000000000' , '0.000000000' 
+'20' , '203892604.78231999' , '36' , '0' , '250.000000000' , 'COUNTRY_LANGUAGE' , NULL, '150.000000000' , '400.000000000' , '0.000000000' 
+'21' , '203892604.70914599' , '35' , '0' , '250.000000000' , 'CURRENCY' , NULL, '150.000000000' , '0.000000000' , '300.000000000' 
+'22' , '203892604.97551199' , '35' , '0' , '250.000000000' , 'STORE' , NULL, '150.000000000' , '200.000000000' , '300.000000000' 
+'25' , '203892606.05044800' , '33' , '0' , '250.000000000' , 'STORE_ALBUM' , NULL, '150.000000000' , '0.000000000' , '0.000000000' 
+'27' , '203892604.74237799' , '27' , '0' , '250.000000000' , 'PRODUCT' , NULL, '150.000000000' , '0.000000000' , '0.000000000' 
+'29' , '203892605.81645301' , '27' , '0' , '250.000000000' , 'COMPOSER' , NULL, '150.000000000' , '400.000000000' , '0.000000000' 
+'30' , '203892605.47915700' , '27' , '0' , '250.000000000' , 'SONG_COMPOSER' , NULL, '150.000000000' , '0.000000000' , '300.000000000' 
+'32' , '203892604.80581098' , '17' , '0' , '250.000000000' , 'BOX_SET_PLAYLIST' , NULL, '150.000000000' , '0.000000000' , '0.000000000' 
+'33' , '203892605.44683501' , '17' , '0' , '250.000000000' , 'BOX_SET' , NULL, '150.000000000' , '200.000000000' , '0.000000000' 
+'34' , '203892605.54725501' , '17' , '0' , '250.000000000' , 'STUDIO' , NULL, '150.000000000' , '400.000000000' , '0.000000000' 
+'35' , '203892605.51493600' , '17' , '0' , '250.000000000' , 'SEASON' , NULL, '150.000000000' , '0.000000000' , '300.000000000' 
+'36' , '203892605.98311600' , '17' , '0' , '250.000000000' , 'SHORT_FILM' , NULL, '150.000000000' , '200.000000000' , '300.000000000' 
+'37' , '203892604.88095998' , '17' , '0' , '250.000000000' , 'TV_SHOW' , NULL, '150.000000000' , '400.000000000' , '300.000000000' 
+'38' , '203892605.35371801' , '17' , '0' , '250.000000000' , 'PODCAST' , NULL, '150.000000000' , '0.000000000' , '600.000000000' 
+'39' , '203892605.88258001' , '17' , '0' , '250.000000000' , 'MUSIC_VIDEO' , NULL, '150.000000000' , '200.000000000' , '600.000000000' 
+'40' , '203892605.78200501' , '17' , '0' , '250.000000000' , 'EPISODE' , NULL, '150.000000000' , '400.000000000' , '600.000000000' 
+'42' , '203892605.64852601' , '9' , '0' , '250.000000000' , 'ASSET' , NULL, '150.000000000' , '0.000000000' , '0.000000000' 
+TABLE _SYS_APPS
+_rowid, _timestamp, _version, appName
+'1' , '136244398.94442930' , '1' , 'JDBC' 
+'2' , '136244398.94442930' , '1' , 'OpenBaseManager' 
+'4' , '136244591.12303036' , '1' , 'openisql' 
+'5' , '136245166.23760956' , '1' , 'WebObjects_JDBC' 
+'7' , '152040825.48706701' , '1' , 'OpenBaseMonitor' 
+'9' , '202678372.53968000' , '1' , 'openisql_ascii' 
+'10' , '203458207.78909999' , '1' , 'WEBAPP' 
+TABLE _SYS_GROUPS
+_rowid, _timestamp, _version, appAuthorizationEnabled, authorizedApps, blockedRadApps, group
+'1' , '203457283.83544999' , '18' , '0' , '||' , '||' , 'admin' 
+'2' , '203457283.83387500' , '17' , '1' , '|WebObjects_JDBC|JDBC|' , '||' , 'polisher' 
+'3' , '203457283.83626899' , '14' , '0' , '||' , '||' , 'content_provider' 
+'5' , '203457283.83797299' , '10' , '0' , '||' , '||' , 'import' 
+'6' , '203457283.83716499' , '9' , '0' , '||' , '||' , 'pricing' 
+TABLE _SYS_PERM
+_rowid, _timestamp, _version, name, p_delete, p_insert, p_select, p_update, table
+'1' , '203457288.94497999' , '15' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_GROUPS' 
+'2' , '203457284.12160900' , '15' , 'polisher' , '0' , '0' , '1' , '1' , 'GENRE' 
+'3' , '203457284.15296000' , '15' , 'polisher' , '0' , '0' , '1' , '0' , '_SYS_USERS' 
+'4' , '203457284.11032301' , '15' , 'polisher' , '0' , '0' , '1' , '0' , 'STORE' 
+'5' , '203457283.84600401' , '15' , 'polisher' , '0' , '0' , '1' , '0' , 'CURRENCY' 
+'6' , '203457284.11786899' , '15' , 'polisher' , '0' , '0' , '1' , '1' , 'COUNTRY' 
+'7' , '203457284.11407199' , '15' , 'polisher' , '0' , '0' , '1' , '1' , 'CATEGORY' 
+'8' , '203457288.95366999' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_JDBC2v4' 
+'9' , '203457284.15170601' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , '_SYS_USERS' 
+'10' , '152653603.79599300' , '11' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_JDBC2v3' 
+'11' , '203457284.10781601' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_PERM' 
+'12' , '203457284.14047598' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_REPLICATION' 
+'14' , '203457284.15922498' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'LANGUAGE' 
+'15' , '203457284.16047901' , '13' , 'polisher' , '0' , '0' , '1' , '0' , 'LANGUAGE' 
+'16' , '203457283.84473899' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'CURRENCY' 
+'17' , '203457284.11661198' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'COUNTRY' 
+'18' , '203457288.94746899' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_QUERY' 
+'19' , '203457284.09888500' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_TABLES' 
+'20' , '203457284.10528698' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_APP_PREFERENCES' 
+'21' , '203457288.93623000' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'PARENTAL_ADVISORY' 
+'22' , '203457288.93748399' , '13' , 'polisher' , '0' , '0' , '1' , '0' , 'PARENTAL_ADVISORY' 
+'24' , '203457284.15798199' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_APP_TABLES' 
+'25' , '203457284.12661200' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_APPS' 
+'26' , '203457288.96364501' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_VIEWER_PREFERENCES' 
+'27' , '203457284.10907599' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'STORE' 
+'28' , '203457288.93482700' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_RELATIONSHIP' 
+'29' , '203457284.10654500' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_TRIGGER' 
+'30' , '203457288.94622400' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_JDBC1v4' 
+'31' , '203457284.11280998' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'CATEGORY' 
+'32' , '152653603.79599300' , '11' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_JDBC1v3' 
+'33' , '203457284.12034899' , '13' , 'content_provider' , '0' , '0' , '1' , '0' , 'GENRE' 
+'34' , '203457288.95488199' , '13' , 'polisher' , '0' , '0' , '0' , '0' , '_SYS_APP_FIELDS' 
+'36' , '203457288.19138100' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'ARTIST_COLLABORATION' 
+'38' , '203457288.93999999' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'COMPOSER' 
+'39' , '203457284.10275200' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'BOX_SET_PLAYLIST' 
+'40' , '203457288.94872000' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'SHORT_FILM' 
+'41' , '203457284.09756299' , '8' , 'pricing_manager' , '1' , '1' , '1' , '1' , 'CURRENCY' 
+'42' , '203457288.95120701' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'ARTIST' 
+'43' , '203457284.12410700' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'TV_SHOW' 
+'44' , '203457284.14172399' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'AUDIO_BOOK' 
+'46' , '203457284.14669400' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'BOX_SET' 
+'47' , '203457288.95617601' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'AUDIO_BOOK_CATEGORY' 
+'48' , '203457284.13289600' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'AUDIO_BOOK_AUTHOR' 
+'49' , '203457284.14923098' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'SONG_COMPOSER' 
+'50' , '203457284.15548500' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'STUDIO' 
+'51' , '203457284.16296801' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'AUTHOR' 
+'52' , '203457288.94250598' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'EPISODE' 
+'53' , '203457284.11909899' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'COUNTRY' 
+'54' , '203457288.93871000' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'PARENTAL_ADVISORY' 
+'55' , '203457284.13793099' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'SONG' 
+'56' , '203457284.11157798' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'STORE' 
+'57' , '203457288.95861598' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'STORE_ALBUM' 
+'58' , '203457284.13541400' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'PODCAST' 
+'59' , '203457284.12786999' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'PROVIDER' 
+'60' , '203457284.11535501' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'CATEGORY' 
+'61' , '203457284.13040000' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'LABEL' 
+'62' , '203457284.12285500' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'GENRE' 
+'63' , '203457284.16170498' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'LANGUAGE' 
+'65' , '203457288.96111801' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'ARTIST_GROUP' 
+'66' , '203457284.10019099' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'COUNTRY_LANGUAGE' 
+'67' , '203457284.14420700' , '8' , 'pricing_manager' , '0' , '0' , '1' , '0' , 'PLAYLIST_GENRE' 
+'68' , '203457288.19280201' , '7' , 'polisher' , '1' , '1' , '1' , '1' , 'ARTIST_COLLABORATION' 
+'69' , '203457288.94125700' , '7' , 'polisher' , '0' , '0' , '1' , '1' , 'COMPOSER' 
+'70' , '203457284.10401299' , '7' , 'polisher' , '1' , '1' , '1' , '1' , 'BOX_SET_PLAYLIST' 
+'71' , '203457288.95243400' , '7' , 'polisher' , '0' , '0' , '0' , '0' , 'ARTIST' 
+'72' , '203457284.14295300' , '7' , 'polisher' , '0' , '0' , '1' , '1' , 'AUDIO_BOOK' 
+'73' , '203457284.14795398' , '7' , 'polisher' , '0' , '0' , '1' , '1' , 'BOX_SET' 
+'74' , '203457288.95741099' , '7' , 'polisher' , '1' , '1' , '1' , '1' , 'AUDIO_BOOK_CATEGORY' 
+'75' , '203457284.13415101' , '7' , 'polisher' , '1' , '1' , '1' , '1' , 'AUDIO_BOOK_AUTHOR' 
+'76' , '203457284.16423100' , '7' , 'polisher' , '0' , '0' , '1' , '1' , 'AUTHOR' 
+'79' , '203457284.13670301' , '7' , 'polisher' , '0' , '0' , '1' , '1' , 'PODCAST' 
+'80' , '203457288.96240198' , '7' , 'polisher' , '1' , '1' , '1' , '1' , 'ARTIST_GROUP' 
+'81' , '203457284.10147398' , '7' , 'polisher' , '0' , '0' , '1' , '1' , 'COUNTRY_LANGUAGE' 
+'82' , '203457284.14544099' , '7' , 'polisher' , '1' , '1' , '1' , '1' , 'PLAYLIST_GENRE' 
+'84' , '203457288.94995701' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'SHORT_FILM' 
+'85' , '203457284.12535598' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'TV_SHOW' 
+'87' , '203457284.15046000' , '6' , 'polisher' , '1' , '1' , '1' , '1' , 'SONG_COMPOSER' 
+'88' , '203457284.15674600' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'STUDIO' 
+'89' , '203457288.94372901' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'EPISODE' 
+'90' , '203457284.13921699' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'SONG' 
+'91' , '203457288.95986399' , '6' , 'polisher' , '1' , '1' , '1' , '1' , 'STORE_ALBUM' 
+'92' , '203457284.12915200' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'PROVIDER' 
+'93' , '203457284.13162800' , '6' , 'polisher' , '0' , '0' , '1' , '1' , 'LABEL' 
+'95' , '203457284.15419599' , '5' , 'pricing_manager' , '0' , '0' , '1' , '0' , '_SYS_USERS' 
+TABLE _SYS_QUERY
+_rowid, _timestamp, _version, sql, title
+TABLE _SYS_REPLICATION
+_rowid, _timestamp, _version, conflict_code, local_date, remote_date, tablename, target_database, target_host, target_password
+TABLE _SYS_USERS
+_rowid, _timestamp, _version, appSecurity, authorizedApps, email, fullname, login, password, popLogin, popPassword, popServer, smtpServer, usergroup
+'1' , '203457283.84371900' , '18' , '0' , NULL, '' , 'Administrator' , 'admin' , '' , '' , '' , '' , '' , 'admin' 
+'2' , '203457283.83969900' , '17' , '0' , NULL, '' , 'Eric Finke' , 'eric' , 'CJEGCIAGIIABJA' , '' , '' , '' , '' , 'polisher' 
+'3' , '203457283.84294399' , '17' , '0' , NULL, '' , 'Ravi Mendis' , 'ravi' , 'CJBHCIBHAGFBBF' , '' , '' , '' , '' , 'admin' 
+'4' , '203457283.84051600' , '14' , '0' , NULL, '' , 'Sony Music International' , 'sony' , 'CIIHCHJGHFGEIA' , '' , '' , '' , '' , 'content_provider' 
+'7' , '203457283.84132701' , '10' , '0' , NULL, '' , 'Autopolisher' , 'autopolisher' , 'BBADIBEFHBFJG' , '' , '' , '' , '' , 'import' 
+'8' , '203457283.84215301' , '10' , '0' , NULL, '' , 'Importer' , 'importer' , 'GFCEHFHHBIHH' , '' , '' , '' , '' , 'import' 
+'9' , '203457283.83888000' , '9' , '0' , NULL, '' , 'Pricing Manager' , 'pricing_manager' , 'BDHHHCAFGBFJG' , '' , '' , '' , '' , 'pricing' 
+TABLE _SYS_VIEWER_PREFERENCES
+_rowid, _timestamp, _version, key, login, preferenceString, tablename
+TABLE ARTIST
+_rowid, _timestamp, _version, ARTIST_ID, ENTITY_NAME, FIRST_ARTIST_ID, LABEL_ID, NAME, SECOND_ARTIST_ID
+'1' , '136147021.35924923' , '1' , '2' , 'SoloArtist' , NULL, '1' , 'Beyonce Knowles' , NULL
+'3' , '136147307.94164347' , '1' , '4' , 'SoloArtist' , NULL, '2' , 'Mariah Carey' , NULL
+'4' , '136155464.80934387' , '1' , '5' , 'Group' , NULL, '2' , 'Destiny\'s Child' , NULL
+'5' , '136240292.27960252' , '1' , '6' , 'SoloArtist' , NULL, '6' , 'Whitney Houston' , NULL
+'6' , '136240631.88945362' , '1' , '7' , 'SoloArtist' , NULL, '4' , 'Sean Paul' , NULL
+'7' , '136243388.22303608' , '1' , '8' , 'SoloArtist' , NULL, '8' , 'Luther Vandross' , NULL
+'9' , '136245210.46364021' , '1' , '10' , 'Duo' , '2' , NULL, 'Beyonce Knowles with Luther Vandross' , '8' 
+TABLE ARTIST_COLLABORATION
+_rowid, _timestamp, _version, ARTIST_ID, COLLABORATION_ID
+TABLE ARTIST_GROUP
+_rowid, _timestamp, _version, ARTIST_ID, GROUP_ID
+'1' , '136155464.80934387' , '1' , '2' , '5' 
+TABLE ASSET
+_rowid, _timestamp, _version, ASSET_ID, ENTITY_NAME, TOKEN
+'1' , '162244781.63861098' , '1' , '1' , 'Thumbnail' , 'Music/y2003/m06/d17/h13/s03.ivkglceu.60x60-75.jpg' 
+'2' , '162244812.99674698' , '1' , '2' , 'CoverArt' , 'Music/y2003/m06/d17/h13/s03.ivkglceu.tif' 
+'3' , '162244858.03371399' , '1' , '3' , 'Thumbnail' , 'Music/y2004/m02/d25/h17/dj.lktrgeao.60x60-75.jpg' 
+'4' , '162244877.53520700' , '1' , '4' , 'CoverArt' , 'Music/y2004/m02/d25/h17/dj.lktrgeao.jpg' 
+'5' , '162244941.43744200' , '1' , '5' , 'Thumbnail' , 'Music/y2004/m07/d10/h08/s05.wjzywxrb.60x60-75.jpg' 
+'6' , '162244965.59196499' , '1' , '6' , 'CoverArt' , 'Music/y2004/m07/d10/h08/s05.wjzywxrb.tif' 
+'7' , '162245007.72848901' , '1' , '7' , 'Thumbnail' , 'Music/y2004/m09/d22/h11/s06.clshclql.60x60-75.jpg' 
+'8' , '162245032.76247599' , '1' , '8' , 'CoverArt' , 'Music/y2004/m09/d22/h11/s06.clshclql.tif' 
+TABLE AUDIO_BOOK
+_rowid, _timestamp, _version, AUDIO_BOOK_ID, NARRATOR_ID, PROVIDER_ID, TITLE
+'1' , '136165116.39420038' , '1' , '1' , NULL, '1' , 'Wolves In Chic Clothing' 
+TABLE AUDIO_BOOK_AUTHOR
+_rowid, _timestamp, _version, AUDIO_BOOK_ID, AUTHOR_ID
+'1' , '136165116.39420038' , '1' , '1' , '1' 
+TABLE AUDIO_BOOK_CATEGORY
+_rowid, _timestamp, _version, AUDIO_BOOK_ID, CATEGORY_ID
+'1' , '136165116.39420038' , '1' , '1' , '1' 
+TABLE AUTHOR
+_rowid, _timestamp, _version, AUTHOR_ID, NAME
+'1' , '136164507.81971895' , '1' , '1' , 'Carrie Karasyov' 
+TABLE BOX_SET
+_rowid, _timestamp, _version, ARTIST_ID, BOX_SET_ID, GENRE_ID, LABEL_ID, TITLE
+'2' , '152566454.78652301' , '1' , '2' , '3' , '3' , '1' , 'Beyonce - Complete' 
+TABLE BOX_SET_PLAYLIST
+_rowid, _timestamp, _version, BOX_SET_ID, PLAYLIST_ID
+'1' , '152229468.84942200' , '1' , '1' , '3' 
+'2' , '152229468.84942200' , '1' , '1' , '2' 
+'3' , '152566454.78652301' , '1' , '3' , '2' 
+TABLE CATEGORY
+_rowid, _timestamp, _version, CATEGORY_ID, NAME, PARENT_CATEGORY_ID
+'1' , '152059099.82870400' , '9' , '1' , 'Fiction' , NULL
+TABLE COMPOSER
+_rowid, _timestamp, _version, COMPOSER_ID, NAME
+TABLE COUNTRY
+_rowid, _timestamp, _version, COUNTRY_ID, NAME, STORE_ID
+'1' , '152561916.21967899' , '4' , '1' , 'U.S' , '1' 
+'2' , '152054324.26853999' , '4' , '2' , 'U.K' , '2' 
+TABLE COUNTRY_LANGUAGE
+_rowid, _timestamp, _version, COUNTRY_ID, LANGUAGE_ID
+'1' , '136750712.89414981' , '1' , '1' , '1' 
+'2' , '136750725.16969153' , '1' , '2' , '2' 
+TABLE CURRENCY
+_rowid, _timestamp, _version, CURRENCY_ID, NAME
+'1' , '136750667.17449164' , '2' , '1' , 'Euro' 
+'2' , '136750659.33914625' , '1' , '2' , 'Dollar' 
+'3' , '136750675.38446900' , '1' , '3' , 'Yen' 
+TABLE EO_PK_TABLE
+_rowid, _timestamp, _version, NAME, PK
+'1' , '152653162.42336300' , '5' , 'GENRE' , '4' 
+'2' , '158201786.78009301' , '10' , 'LABEL' , '9' 
+'3' , '136245210.36115202' , '11' , 'ARTIST' , '10' 
+'4' , '136153308.54778292' , '3' , 'PARENTAL_ADVISORY' , '2' 
+'5' , '155168309.21168100' , '7' , 'PLAYLIST' , '6' 
+'6' , '158189244.61688900' , '11' , 'SONG' , '10' 
+'7' , '136164507.79252722' , '2' , 'AUTHOR' , '1' 
+'8' , '136165028.16944903' , '2' , 'CATEGORY' , '1' 
+'9' , '136165074.90625870' , '2' , 'PROVIDER' , '1' 
+'10' , '136165116.36766260' , '2' , 'AUDIO_BOOK' , '1' 
+'12' , '137628852.49946016' , '8' , 'LANGUAGE' , '7' 
+'13' , '136750675.37893509' , '4' , 'CURRENCY' , '3' 
+'14' , '136750725.16212704' , '3' , 'COUNTRY' , '2' 
+'15' , '136750814.44109302' , '3' , 'STORE' , '2' 
+'16' , '158198358.26238000' , '18' , 'PRODUCT' , '17' 
+'18' , '152566454.74084100' , '4' , 'BOX_SET' , '3' 
+'19' , '158116033.43141099' , '4' , 'STUDIO' , '3' 
+'20' , '158191543.99326700' , '16' , 'MUSIC_VIDEO' , '15' 
+'21' , '158116080.51140600' , '3' , 'SHORT_FILM' , '2' 
+'22' , '152487130.85982599' , '2' , 'TV_SHOW' , '1' 
+'23' , '152487771.40622899' , '5' , 'EPISODE' , '4' 
+'24' , '152487493.92061200' , '4' , 'SEASON' , '3' 
+'25' , '152487771.41514998' , '2' , 'PODCAST' , '1' 
+'27' , '162245032.75533199' , '9' , 'ASSET' , '8' 
+TABLE EPISODE
+_rowid, _timestamp, _version, ENTITY_NAME, EPISODE_ID, PODCAST_ID, RELEASE_DATE, SEASON_ID, TITLE
+'1' , '152487493.92731100' , '1' , 'TVEpisode' , '3' , NULL, '2005-03-03 09:00:00 +0100' , '3' , 'Lost' 
+'2' , '152487771.42936399' , '1' , 'PodcastEpisode' , '4' , '1' , '2005-03-02 09:00:00 +0100' , NULL, 'Episode VI' 
+TABLE GENRE
+_rowid, _timestamp, _version, GENRE_ID, NAME, PARENT_GENRE_ID
+'1' , '136145393.88627553' , '1' , '1' , 'R&B' , NULL
+'2' , '152055872.57447499' , '5' , '2' , 'Pop' , NULL
+'3' , '152653190.04210400' , '3' , '3' , 'R&B/Soul' , '1' 
+TABLE LABEL
+_rowid, _timestamp, _version, ENTITY_NAME, LABEL_ID, NAME, PARENT_LABEL_ID
+'1' , '136146657.85469216' , '1' , 'Sony' , '1' , 'Sony Music' , NULL
+'2' , '136146686.78247797' , '1' , 'Sony' , '2' , 'Columbia' , '1' 
+'3' , '136229233.24397295' , '1' , 'Warner' , '3' , 'Warner' , NULL
+'4' , '136229251.15096536' , '1' , 'Warner' , '4' , 'Atlantic Records' , '3' 
+'5' , '136240207.00500512' , '1' , 'BMG' , '5' , 'BMG' , NULL
+'6' , '136240250.54800143' , '1' , 'BMG' , '6' , 'Arista' , '5' 
+'7' , '136243361.21782150' , '1' , 'BMG' , '7' , 'RCA' , '5' 
+'8' , '136243370.22364962' , '1' , 'BMG' , '8' , 'J Records' , '7' 
+'10' , '158201786.78933799' , '1' , 'Indie' , '9' , 'V2' , NULL
+TABLE LANGUAGE
+_rowid, _timestamp, _version, ENTITY_NAME, LANGUAGE_ID, NAME
+'1' , '136750150.75669226' , '1' , 'English' , '1' , 'English (US)' 
+'2' , '136750161.04301372' , '1' , 'English' , '2' , 'English (UK)' 
+'3' , '136750192.58253282' , '1' , 'French' , '3' , 'French' 
+'4' , '136750204.80236604' , '1' , 'French' , '4' , 'French (Canadian)' 
+'5' , '136750240.29897192' , '1' , 'Japanese' , '5' , 'Japanese' 
+'7' , '137628830.05375003' , '1' , 'German' , '6' , 'German' 
+'8' , '137628852.50653994' , '1' , 'German' , '7' , 'German (Swiss)' 
+TABLE MUSIC_VIDEO
+_rowid, _timestamp, _version, ARTIST_ID, GENRE_ID, LABEL_ID, LANGUAGE_ID, TITLE, VIDEO_ID
+'2' , '158191544.02281200' , '1' , '2' , '1' , '2' , NULL, 'Crazy In Love' , '15' 
+TABLE PARENTAL_ADVISORY
+_rowid, _timestamp, _version, PARENTAL_ADVISORY_ID, TYPE
+'1' , '136153300.39622837' , '1' , '1' , 'Clean' 
+'2' , '136153308.55471599' , '1' , '2' , 'Explicit' 
+TABLE PLAYLIST
+_rowid, _timestamp, _version, ARTIST_ID, COVER_ART_ID, ENTITY_NAME, GENRE_ID, LABEL_ID, LANGUAGE_ID, PARENTAL_ADVISORY_ID, PLAYLIST_ID, THUMBNAIL_ID, TITLE
+'1' , '162244965.59196499' , '4' , '2' , '6' , 'MaxiSingle' , '3' , '1' , NULL, NULL, '1' , '5' , 'Crazy In Love' 
+'2' , '162244812.99674698' , '8' , '2' , '2' , 'Album' , '3' , '1' , NULL, NULL, '2' , '1' , 'Dangerously In Love' 
+'4' , '162244877.53520700' , '8' , '6' , '4' , 'Album' , '2' , '6' , NULL, NULL, '3' , '3' , 'Whitney Houston' 
+'7' , '162245032.76247599' , '3' , '5' , '8' , 'MaxiSingle' , '1' , '1' , '1' , '1' , '6' , '7' , 'Lose My Breath' 
+TABLE PLAYLIST_GENRE
+_rowid, _timestamp, _version, GENRE_ID, PLAYLIST_ID
+'1' , '136154688.03334242' , '1' , '3' , '1' 
+'2' , '136155541.12094727' , '1' , '3' , '2' 
+TABLE PODCAST
+_rowid, _timestamp, _version, DETAIL, PODCAST_ID, TITLE
+'1' , '152487771.42936399' , '1' , NULL, '1' , 'iTunes New Music Tuesdays' 
+TABLE PRODUCT
+_rowid, _timestamp, _version, CONTENT_ID, ENTITY_NAME, PRICE, PRODUCT_ID, STORE_ID
+TABLE PROVIDER
+_rowid, _timestamp, _version, NAME, PROVIDER_ID
+'1' , '136165074.92123833' , '1' , 'Random House Publishing' , '1' 
+TABLE SEASON
+_rowid, _timestamp, _version, DETAIL, NO, SEASON_ID, SHOW_ID, TITLE
+'3' , '158199624.05064100' , '3' , 'First season' , '1' , '3' , '1' , 'Lost, Season 1' 
+TABLE SHORT_FILM
+_rowid, _timestamp, _version, STUDIO_ID, TITLE, VIDEO_ID
+'2' , '158116080.52131101' , '1' , '3' , 'Tin Toy' , '2' 
+TABLE SONG
+_rowid, _timestamp, _version, ARTIST_ID, NO, PLAYLIST_ID, TITLE, TRACK_ID
+'1' , '144721665.09985500' , '4' , '2' , '1' , '2' , 'Crazy In Love' , '1' 
+'2' , '144721667.14600801' , '2' , '2' , '2' , '2' , 'Baby Boy' , '2' 
+'3' , '144721674.18624699' , '2' , '2' , '1' , '1' , 'Crazy In Love (Album Version)' , '3' 
+'5' , '144721669.31476599' , '2' , '10' , '3' , '2' , 'The Closer I Get To You' , '4' 
+'6' , '144721671.76270800' , '2' , '2' , '4' , '2' , 'Work It Out' , '5' 
+'7' , '144721675.50804299' , '2' , '6' , '1' , '3' , 'I Wanna Dance With Somebody' , '6' 
+'11' , '155168309.25830799' , '1' , '5' , '1' , '6' , 'Lose My Breath' , '9' 
+'13' , '158189244.64014500' , '1' , '2' , '5' , '2' , 'Naughty Girl' , '10' 
+TABLE SONG_COMPOSER
+_rowid, _timestamp, _version, COMPOSER_ID, TRACK_ID
+TABLE STORE
+_rowid, _timestamp, _version, CURRENCY_ID, NAME, STORE_ID
+'1' , '152060693.07024100' , '3' , '2' , 'U.S' , '1' 
+'2' , '152054303.03332001' , '7' , '1' , 'U.K' , '2' 
+TABLE STORE_ALBUM
+_rowid, _timestamp, _version, PRODUCT_ID, STORE_ID
+'1' , '137030315.97130408' , '1' , '2' , '1' 
+'2' , '137030315.97130408' , '1' , '2' , '2' 
+TABLE STUDIO
+_rowid, _timestamp, _version, ENTITY_NAME, NAME, PARENT_STUDIO_ID, STUDIO_ID
+'1' , '152486227.38142100' , '1' , 'Disney' , 'Disney' , NULL, '1' 
+'2' , '152486265.87396401' , '1' , 'Disney' , 'ABC' , '1' , '2' 
+'3' , '158116033.44868400' , '1' , 'Disney' , 'Pixar' , '1' , '3' 
+TABLE TV_SHOW
+_rowid, _timestamp, _version, SHOW_ID, STUDIO_ID, TITLE
+'1' , '152487130.88153299' , '1' , '1' , '2' , 'Lost' 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wodefinitions>
+	<wo class="MenuItem" wocomponentcontent="false">
+
+		<binding name="title"/>
+		<binding name="index"/>
+
+		<validation message="&apos;title&apos; is a required binding">
+			<unbound name="title"/>
+		</validation>
+
+		<validation message="&apos;index&apos; is a required binding">
+			<unbound name="index"/>
+		</validation>
+	</wo>
+</wodefinitions>

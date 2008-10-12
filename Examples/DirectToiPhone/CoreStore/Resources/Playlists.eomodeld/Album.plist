@@ -1,0 +1,226 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = "ARTIST_ID"; 
+            externalType = NUMBER; 
+            name = artistID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "COVER_ART_ID"; 
+            externalType = NUMBER; 
+            name = coverArtID; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = VARCHAR2; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 50; 
+        }, 
+        {
+            columnName = "GENRE_ID"; 
+            externalType = NUMBER; 
+            name = genreID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "LABEL_ID"; 
+            externalType = NUMBER; 
+            name = labelID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "LANGUAGE_ID"; 
+            externalType = NUMBER; 
+            name = languageID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENTAL_ADVISORY_ID"; 
+            externalType = NUMBER; 
+            name = parentalAdvisoryID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "PLAYLIST_ID"; 
+            externalType = NUMBER; 
+            name = playlistID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = ""; 
+            definition = "(SELECT COUNT(*) FROM SONG WHERE SONG.PLAYLIST_ID = PLAYLIST_ID)"; 
+            externalType = NUMBER; 
+            isReadOnly = Y; 
+            name = songsCount; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "THUMBNAIL_ID"; 
+            externalType = NUMBER; 
+            name = thumbnailID; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (
+        playlistID, 
+        title, 
+        entityName, 
+        parentalAdvisoryID, 
+        artistID, 
+        labelID, 
+        genreID, 
+        languageID, 
+        coverArtID, 
+        thumbnailID
+    ); 
+    className = "com.apple.itunes.store.Playlist"; 
+    classProperties = (
+        title, 
+        entityName, 
+        parentalAdvisory, 
+        label, 
+        artist, 
+        genre, 
+        songs, 
+        songsCount, 
+        language, 
+        products, 
+        coverArt, 
+        thumbnail
+    ); 
+    externalName = PLAYLIST; 
+    fetchSpecificationDictionary = {}; 
+    name = Album; 
+    parent = Playlist; 
+    primaryKeyAttributes = (playlistID); 
+    relationships = (
+        {
+            destination = Artist; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = artist; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = BoxSetAlbum; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = albumID; sourceAttribute = playlistID; }); 
+            name = boxSetAlbums; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = CoverArt; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = assetID; sourceAttribute = coverArtID; }); 
+            name = coverArt; 
+            ownsDestination = Y; 
+        }, 
+        {
+            destination = Genre; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = genreID; sourceAttribute = genreID; }); 
+            name = genre; 
+        }, 
+        {
+            destination = Label; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = labelID; sourceAttribute = labelID; }); 
+            name = label; 
+        }, 
+        {
+            destination = Language; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = languageID; sourceAttribute = languageID; }); 
+            name = language; 
+        }, 
+        {
+            destination = ParentalAdvisory; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = (
+                {
+                    destinationAttribute = parentalAdvisoryID; 
+                    sourceAttribute = parentalAdvisoryID; 
+                }
+            ); 
+            name = parentalAdvisory; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = DigitalAlbum; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = playlistID; }); 
+            name = products; 
+            ownsDestination = Y; 
+        }, 
+        {
+            destination = Song; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = playlistID; sourceAttribute = playlistID; }); 
+            name = songs; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = Thumbnail; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = assetID; sourceAttribute = thumbnailID; }); 
+            name = thumbnail; 
+            ownsDestination = Y; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'Album')"; 
+}

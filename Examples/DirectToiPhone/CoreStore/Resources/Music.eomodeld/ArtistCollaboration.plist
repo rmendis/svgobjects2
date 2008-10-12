@@ -1,0 +1,40 @@
+{
+    attributes = (
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = NUMBER; 
+            name = artistID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "COLLABORATION_ID"; 
+            externalType = NUMBER; 
+            name = collaborationID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (artistID, collaborationID); 
+    className = EOGenericRecord; 
+    externalName = "ARTIST_COLLABORATION"; 
+    fetchSpecificationDictionary = {}; 
+    name = ArtistCollaboration; 
+    primaryKeyAttributes = (artistID, collaborationID); 
+    relationships = (
+        {
+            destination = Artist; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = artist; 
+        }, 
+        {
+            destination = Collaboration; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = collaborationID; }); 
+            name = collaboration; 
+        }
+    ); 
+}

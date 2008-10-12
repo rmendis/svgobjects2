@@ -1,0 +1,44 @@
+{
+    attributes = (
+        {
+            columnName = "AUTHOR_ID"; 
+            externalType = NUMBER; 
+            name = authorID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "AUDIO_BOOK_ID"; 
+            externalType = NUMBER; 
+            name = audioBookID; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (authorID, audioBookID); 
+    className = EOGenericRecord; 
+    externalName = "AUDIO_BOOK_AUTHOR"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {uniqueID = 204331731; }; 
+    name = AudioBookAuthor; 
+    primaryKeyAttributes = (authorID, audioBookID); 
+    relationships = (
+        {
+            destination = AudioBook; 
+            internalInfo = {uniqueID = 204331696; }; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = audioBookID; sourceAttribute = audioBookID; }); 
+            name = audioBook; 
+        }, 
+        {
+            destination = Author; 
+            internalInfo = {uniqueID = 204331669; }; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = authorID; sourceAttribute = authorID; }); 
+            name = author; 
+        }
+    ); 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

@@ -1,0 +1,84 @@
+{
+    attributes = (
+        {
+            columnName = "ENTITY_NAME"; 
+            externalType = varchar; 
+            name = entityName; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 50; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = varchar; 
+            name = name; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSString; 
+            valueType = S; 
+            width = 255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "LABEL_ID"; 
+            externalType = long; 
+            name = labelID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "ARTIST_ID"; 
+            externalType = long; 
+            name = artistID; 
+            precision = 9; 
+            serverTimeZone = "US/Pacific"; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (entityName, name, labelID, artistID); 
+    className = "com.apple.itunes.store.Artist"; 
+    classProperties = (entityName, albums, name, artists, singles); 
+    externalName = ARTIST; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {
+        "_clientClassPropertyNames" = (entityName, albums, name, artists, singles); 
+        uniqueID = 204204761; 
+    }; 
+    name = Collaboration; 
+    parent = Artist; 
+    primaryKeyAttributes = (artistID); 
+    relationships = (
+        {
+            destination = Album; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = albums; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = ArtistCollaboration; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = collaborationID; sourceAttribute = artistID; }); 
+            name = artistCollaborations; 
+        }, 
+        {
+            definition = "artistCollaborations.artist"; 
+            joinSemantic = EOInnerJoin; 
+            name = artists; 
+        }, 
+        {
+            destination = MaxiSingle; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = artistID; sourceAttribute = artistID; }); 
+            name = singles; 
+        }
+    ); 
+    restrictingQualifier = "(entityName = 'Collaboration')"; 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

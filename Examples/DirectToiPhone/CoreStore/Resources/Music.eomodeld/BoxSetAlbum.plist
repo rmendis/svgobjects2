@@ -1,0 +1,44 @@
+{
+    attributes = (
+        {
+            columnName = "PLAYLIST_ID"; 
+            externalType = NUMBER; 
+            name = albumID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "BOX_SET_ID"; 
+            externalType = NUMBER; 
+            name = boxSetID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (boxSetID, albumID); 
+    className = EOGenericRecord; 
+    externalName = "BOX_SET_PLAYLIST"; 
+    fetchSpecificationDictionary = {}; 
+    name = BoxSetAlbum; 
+    primaryKeyAttributes = (boxSetID, albumID); 
+    relationships = (
+        {
+            destination = BoxSet; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = boxSetID; sourceAttribute = boxSetID; }); 
+            name = boxSet; 
+        }, 
+        {
+            destination = Album; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = playlistID; sourceAttribute = albumID; }); 
+            name = playlist; 
+        }
+    ); 
+}

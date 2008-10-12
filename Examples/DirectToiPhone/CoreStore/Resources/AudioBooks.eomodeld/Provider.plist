@@ -1,0 +1,28 @@
+{
+    attributes = (
+        {
+            columnName = "PROVIDER_ID"; 
+            externalType = NUMBER; 
+            name = providerID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }
+    ); 
+    attributesUsedForLocking = (providerID, name); 
+    className = EOGenericRecord; 
+    classProperties = (name); 
+    externalName = PROVIDER; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_clientClassPropertyNames" = (name); uniqueID = 204331761; }; 
+    name = Provider; 
+    primaryKeyAttributes = (providerID); 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

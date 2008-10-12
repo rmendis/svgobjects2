@@ -1,0 +1,106 @@
+{
+    attributes = (
+        {
+            columnName = "PROVIDER_ID"; 
+            externalType = NUMBER; 
+            name = providerID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = TITLE; 
+            externalType = VARCHAR2; 
+            name = title; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "AUDIO_BOOK_ID"; 
+            externalType = NUMBER; 
+            name = audioBookID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "NARRATOR_ID"; 
+            externalType = NUMBER; 
+            name = narratorID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (providerID, title, audioBookID, narratorID); 
+    className = EOGenericRecord; 
+    classProperties = (provider, title, narrator, products, categories, authors); 
+    externalName = "AUDIO_BOOK"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {
+        "_clientClassPropertyNames" = (provider, title, narrator, products, categories, authors); 
+        uniqueID = 204331801; 
+    }; 
+    name = AudioBook; 
+    primaryKeyAttributes = (audioBookID); 
+    relationships = (
+        {
+            destination = Provider; 
+            internalInfo = {uniqueID = 204331651; }; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = providerID; sourceAttribute = providerID; }); 
+            name = provider; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = AudioBookCategory; 
+            internalInfo = {uniqueID = 204331615; }; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = audioBookID; sourceAttribute = audioBookID; }); 
+            name = audioBookCategories; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {
+            destination = Author; 
+            internalInfo = {uniqueID = 204331592; }; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = authorID; sourceAttribute = narratorID; }); 
+            name = narrator; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = DigitalAudioBook; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = contentID; sourceAttribute = audioBookID; }); 
+            name = products; 
+            ownsDestination = Y; 
+        }, 
+        {
+            definition = "audioBookCategories.category"; 
+            joinSemantic = EOInnerJoin; 
+            name = categories; 
+        }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = AudioBookAuthor; 
+            internalInfo = {uniqueID = 204331572; }; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = audioBookID; sourceAttribute = audioBookID; }); 
+            name = audioBookAuthors; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {
+            definition = "audioBookAuthors.author"; 
+            joinSemantic = EOInnerJoin; 
+            name = authors; 
+        }
+    ); 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}

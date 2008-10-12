@@ -1,0 +1,71 @@
+{
+    attributes = (
+        {
+            columnName = NAME; 
+            externalType = VARCHAR2; 
+            name = name; 
+            valueClassName = NSString; 
+            width = 255; 
+        }, 
+        {
+            columnName = "CATEGORY_ID"; 
+            externalType = NUMBER; 
+            name = categoryID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = "PARENT_CATEGORY_ID"; 
+            externalType = NUMBER; 
+            name = parentCategoryID; 
+            precision = 9; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (name, categoryID, parentCategoryID); 
+    className = EOGenericRecord; 
+    classProperties = (parent, name, audioBooks, subCategories); 
+    externalName = CATEGORY; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {
+        "_clientClassPropertyNames" = (parent, name, audioBooks, subCategories); 
+        uniqueID = 204331868; 
+    }; 
+    name = Category; 
+    primaryKeyAttributes = (categoryID); 
+    relationships = (
+        {
+            destination = Category; 
+            internalInfo = {uniqueID = 204331453; }; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = categoryID; sourceAttribute = parentCategoryID; }); 
+            name = parent; 
+        }, 
+        {
+            definition = "audioBookCategories.audioBook"; 
+            joinSemantic = EOInnerJoin; 
+            name = audioBooks; 
+        }, 
+        {
+            destination = Category; 
+            internalInfo = {uniqueID = 204331433; }; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = parentCategoryID; sourceAttribute = categoryID; }); 
+            name = subCategories; 
+        }, 
+        {
+            destination = AudioBookCategory; 
+            internalInfo = {uniqueID = 204331393; }; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = categoryID; sourceAttribute = categoryID; }); 
+            name = audioBookCategories; 
+        }
+    ); 
+    userInfo = {fetchSpecificationDictionary = {}; }; 
+}
