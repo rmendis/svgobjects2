@@ -21,6 +21,14 @@ public class D2TEdgeToEdgeListPage extends D2TListPage {
     	takeValueForKeyPath(value, "displayGroup.queryMatch." + key);
     }
     
+    public String stylesheet() {
+    	return (String) d2wContext().valueForKey("stylesheet");
+    }
+    
+    public String _href() {
+    	return WOApplication.application().resourceManager().urlForResourceNamed(stylesheet(), "DirectToiPhone", null, context().request());
+    }
+    
     // actions
     public WOComponent toggleSearch() {
     	// toggle
