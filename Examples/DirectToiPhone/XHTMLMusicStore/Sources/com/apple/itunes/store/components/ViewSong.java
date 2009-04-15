@@ -1,4 +1,4 @@
-package com.apple.itunes.store;
+package com.apple.itunes.store.components;
 
 import com.webobjects.appserver.WOComponent;
 import com.webobjects.appserver.WOContext;
