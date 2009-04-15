@@ -14,6 +14,7 @@
     100 : (entity.name = 'Song' and task = 'list') => destinationEntityName = Song [com.webobjects.directtoweb.Assignment],
     100 : (entity.name = 'Genre' and task = 'list') => destinationEntityName = Artist [com.webobjects.directtoweb.Assignment],
     100 : (entity.name = 'Artist' and task = 'list') => destinationEntityName = Playlist [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Song' and task = 'inspect') => stylesheet = RoundRectangle.css [com.webobjects.directtoweb.Assignment],
     100 : (entity.name = 'Genre' and task = 'list') => destinationRelationshipKey = artists [com.webobjects.directtoweb.Assignment],
     100 : (entity.name = 'Artist' and task = 'list') => destinationRelationshipKey = playlists [com.webobjects.directtoweb.Assignment],
     100 : (entity.name = 'Song' and task = 'inspect') => pageName = com.apple.itunes.store.ViewSong [com.webobjects.directtoweb.Assignment],

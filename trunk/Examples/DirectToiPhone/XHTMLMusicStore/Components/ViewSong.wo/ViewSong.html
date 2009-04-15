@@ -1,21 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Now Playing</title>
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
-<style type="text/css" media="screen">@import "/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/RoundRectangle.css";</style>
-</head>
-
-<body>
+<wo:D2TPageTemplate pageTitle="[pageTitle]" stylesheet="[stylesheet]">
     <h1 id="pageTitle">Now Playing</h1>
     <wo:WOHyperlink action="[prevPage]" id="homeButton" class="button"><wo:WOString value="[prevPage.pageTitle]" /></wo:WOHyperlink>
     
 	<h2><img class="coverart" src="[object.playlist.coverArt.url]" width="100"  height="100"/>&nbsp;<wo:WOString value="[object.title]" /></h2>
-    <ul title="iBeeb" selected="true">
+    <ul title="song_list" selected="true">
         <li>Artist<span class="secondary"><wo:WOString value="[object.artist.name]" /></span></li>
         <li>Album<span class="secondary"><wo:WOString value="[object.playlist.title]" /></span></li>
         <li>Track<span class="secondary"><wo:WOString value="[object.number]" />&nbsp;of&nbsp;<wo:WOString value="[object.playlist.songsCount]" /></span></li>
     </ul>
-
-</body>
-</html>
+</wo:D2TPageTemplate>
