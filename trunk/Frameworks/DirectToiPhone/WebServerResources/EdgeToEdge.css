@@ -19,7 +19,7 @@ body > h1 {
     text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
     text-overflow: ellipsis;
     color: #FFFFFF;
-    background: url(iPhoneToolbar.png) #7388a5 repeat-x;
+    background: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneToolbar.png) #7388a5 repeat-x;
     border-bottom: 1px solid #3f4e63;
 }
 
@@ -27,7 +27,7 @@ body > h1 {
     position: absolute;
     top: 7px;
     right: 6px;
-    -webkit-border-image: url(iPhoneButton.png) 0 8 0 8;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneButton.png) 0 8 0 8;
     -webkit-border-radius: 0;
     border-width: 0 8px 0 8px;
     padding: 0;
@@ -45,7 +45,7 @@ body > h1 {
     top: 6px;
     left: 6px;
     right: auto;
-    -webkit-border-image: url(iPhoneBackButton.png) 0 8 0 14;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneBackButton.png) 0 8 0 14;
     border-width: 0 8px 0 14px;
 }
 
@@ -53,11 +53,11 @@ body > h1 {
     top: 6px;
     left: 6px;
     right: auto;
-    -webkit-border-image: url(iPhoneButton.png) 0 8 0 8;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneButton.png) 0 8 0 8;
 }
 
 #goButton {
-    -webkit-border-image: url(iPhoneGoButton.png) 0 8 0 8;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneGoButton.png) 0 8 0 8;
 }
 
 body > div,
@@ -80,7 +80,7 @@ body > ul > li {
     margin: 0;
     border-bottom: 1px solid #E0E0E0;
     padding: 0;
-    background: url(iPhoneArrow.png) no-repeat right center;
+    background: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneArrow.png) no-repeat right center;
     font-size: 18px;
     font-weight: bold;
     list-style: none;
@@ -96,12 +96,12 @@ body > ul > li > a {
 .panel {
     box-sizing: border-box;
     padding: 10px 10px 10px 10px;
-    background: #c8c8c8 url(pinstripes.png);
+    background: #c8c8c8 url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/pinstripes.png);
 }
 
 /************************************************************************************************/
 .loading{
-	background-image: url('loading.gif');
+	background-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/'loading.gif');
 	margin-top: 100px;
 	height: 20px;
 	width: 100%;
@@ -133,7 +133,7 @@ fieldset {
     margin: 0;
     border: none;
     padding: 10px 6px;
-    background: url(iPhoneToolbar.png) #7388a5 repeat-x;
+    background: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneToolbar.png) #7388a5 repeat-x;
 }
 
 fieldset > h1 {

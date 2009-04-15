@@ -1,3 +1,4 @@
 (
+    10 : (task = 'list' and look = 'iPhoneLook') => stylesheet = EdgeToEdge.css [com.webobjects.directtoweb.Assignment],
     10 : (task = 'list' and look = 'iPhoneLook') => pageName = com.webobjects.directtoiphone.D2TEdgeToEdgeListPage [com.webobjects.directtoweb.Assignment]
 )
