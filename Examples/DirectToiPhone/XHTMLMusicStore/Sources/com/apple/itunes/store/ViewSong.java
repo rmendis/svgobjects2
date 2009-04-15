@@ -11,4 +11,9 @@ public class ViewSong extends D2WInspectPage {
     public ViewSong(WOContext context) {
         super(context);
     }
+    
+    // accessors
+    public String stylesheet() {
+    	return (String) d2wContext().valueForKey("stylesheet");
+    }
 }

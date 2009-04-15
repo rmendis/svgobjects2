@@ -5,7 +5,7 @@ body {
     color: #000000;
     overflow: hidden;
     -webkit-text-size-adjust: none;
-    background: #c8c8c8 url(pinstripes.png);
+    background: #c8c8c8 url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/pinstripes.png);
 }
 
 body > h1 {
@@ -19,7 +19,7 @@ body > h1 {
     text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
     text-overflow: ellipsis;
     color: #FFFFFF;
-    background: url(iPhoneToolbar.png) #7388a5 repeat-x;
+    background: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneToolbar.png) #7388a5 repeat-x;
     border-bottom: 1px solid #3f4e63;
 }
 
@@ -52,7 +52,7 @@ body > img {
     position: absolute;
     top: 7px;
     right: 6px;
-    -webkit-border-image: url(iPhoneButton.png) 0 8 0 8;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneButton.png) 0 8 0 8;
     -webkit-border-radius: 0;
     border-width: 0 8px 0 8px;
     padding: 0;
@@ -70,12 +70,12 @@ body > img {
     top: 6px;
     left: 6px;
     right: auto;
-    -webkit-border-image: url(iPhoneBackButton.png) 0 8 0 14;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneBackButton.png) 0 8 0 14;
     border-width: 0 8px 0 14px;
 }
 
 .goButton {
-    -webkit-border-image: url(iPhoneGoButton.png) 0 8 0 8;
+    -webkit-border-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneGoButton.png) 0 8 0 8;
 }
 
 body > div,
@@ -161,7 +161,7 @@ fieldset {
     margin: 0;
     border: none;
     padding: 10px 6px;
-    background: url(iPhoneToolbar.png) #7388a5 repeat-x;
+    background: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/iPhoneToolbar.png) #7388a5 repeat-x;
 }
 
 fieldset > h1 {
@@ -195,7 +195,7 @@ showArrow /*	Add an arrow button to a link */
 	margin-right:10px;		
 	padding-right:16px;	   /* Distance between the arrow button and a text */
 	
-	background-image: url(images/chevron.png); 
+	background-image: url(/WebObjects/Frameworks/DirectToiPhone.framework/WebServerResources/images/chevron.png); 
 	background-repeat: no-repeat;
 	background-position: right; 
 }
