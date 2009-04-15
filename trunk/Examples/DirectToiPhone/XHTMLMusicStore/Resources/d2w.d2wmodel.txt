@@ -1,0 +1,24 @@
+(
+    100 : *true* => look = iPhoneLook [com.webobjects.directtoweb.Assignment],
+    100 : task = 'ListAll' => pageTitle = Music [com.webobjects.directtoweb.Assignment],
+    100 : *true* => inspectableEntityNames = (Song
+) [com.webobjects.directtoweb.Assignment],
+    100 : *true* => visibleEntityNames = (Song,Playlist,Artist,Genre
+) [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Song' and task = 'list') => pageTitle = Songs [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Genre' and task = 'list') => pageTitle = Genre [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Artist' and task = 'list') => pageTitle = Artists [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Song' and task = 'list') => displayPropertyKey = title [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Genre' and task = 'list') => displayPropertyKey = name [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Artist' and task = 'list') => displayPropertyKey = name [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Song' and task = 'list') => destinationEntityName = Song [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Genre' and task = 'list') => destinationEntityName = Artist [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Artist' and task = 'list') => destinationEntityName = Playlist [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Genre' and task = 'list') => destinationRelationshipKey = artists [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Artist' and task = 'list') => destinationRelationshipKey = playlists [com.webobjects.directtoweb.Assignment],
+    100 : (entity.name = 'Song' and task = 'inspect') => pageName = com.apple.itunes.store.pages.ViewSong [com.webobjects.directtoweb.Assignment],
+    100 : ((entity.name = 'Playlist' or entity.parentEntity.name = 'Playlist') and task = 'list') => pageTitle = Playlists [com.webobjects.directtoweb.Assignment],
+    100 : ((entity.name = 'Playlist' or entity.parentEntity.name = 'Playlist') and task = 'list') => displayPropertyKey = title [com.webobjects.directtoweb.Assignment],
+    100 : ((entity.name = 'Playlist' or entity.parentEntity.name = 'Playlist') and task = 'list') => destinationEntityName = Song [com.webobjects.directtoweb.Assignment],
+    100 : ((entity.name = 'Playlist' or entity.parentEntity.name = 'Playlist') and task = 'list') => destinationRelationshipKey = songs [com.webobjects.directtoweb.Assignment]
+)
