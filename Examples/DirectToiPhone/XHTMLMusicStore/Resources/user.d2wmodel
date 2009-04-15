@@ -384,7 +384,7 @@
       "rhs" = {
         "class" = "com.webobjects.directtoweb.Assignment"; 
         "keyPath" = "pageName"; 
-        "value" = "com.apple.itunes.store.ViewSong"; 
+        "value" = "com.apple.itunes.store.pages.ViewSong"; 
       }; 
     }, 
     {
