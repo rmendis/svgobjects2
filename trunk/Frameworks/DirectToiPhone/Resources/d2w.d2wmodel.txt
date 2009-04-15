@@ -1,4 +1,7 @@
 (
-    10 : (task = 'list' and look = 'iPhoneLook') => stylesheet = EdgeToEdge.css [com.webobjects.directtoweb.Assignment],
+    1 : (task = 'ListAll' and look = 'iPhoneLook') => pageTitle = List All [com.webobjects.directtoweb.Assignment],
+    10 : look = 'iPhoneLook' => startupTask = ListAll [com.webobjects.directtoweb.Assignment],
+    10 : ((task = 'list' or task = 'ListAll') and look = 'iPhoneLook') => stylesheet = EdgeToEdge.css [com.webobjects.directtoweb.Assignment],
+    10 : (task = 'ListAll' and look = 'iPhoneLook') => pageName = com.webobjects.directtoiphone.D2TListAllPage [com.webobjects.directtoweb.Assignment],
     10 : (task = 'list' and look = 'iPhoneLook') => pageName = com.webobjects.directtoiphone.D2TEdgeToEdgeListPage [com.webobjects.directtoweb.Assignment]
 )

@@ -1,5 +1,6 @@
 (
     100 : *true* => look = iPhoneLook [com.webobjects.directtoweb.Assignment],
+    100 : task = 'ListAll' => pageTitle = Music [com.webobjects.directtoweb.Assignment],
     100 : *true* => inspectableEntityNames = (Song
 ) [com.webobjects.directtoweb.Assignment],
     100 : *true* => visibleEntityNames = (Song,Playlist,Artist,Genre

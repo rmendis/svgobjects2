@@ -1,0 +1,9 @@
+<wo:D2TPageTemplate pageTitle="[pageTitle]" stylesheet="[stylesheet]">
+    <h1 id="pageTitle"><wo:WOString value="[pageTitle]" /></h1>
+
+    <ul id="root" title="[pageTitle]">
+    <wo:WORepetition list="[visibleEntityNames]" item="[visibleEntityName]" index="[index]">
+        <li><wo:WOHyperlink action="[list]" string="[menuTitle]"></wo:WOHyperlink></li>
+      </wo:WORepetition>
+    </ul>
+</wo:D2TPageTemplate>
