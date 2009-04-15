@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wodefinitions>
+    <wo class="D2TPageTemplate" wocomponentcontent="true">    <binding name="pageTitle"/>
+    
+        
+    <binding name="stylesheet"/>
+        <validation message="'stylesheet' is a required binding.">
+            <unbound name="stylesheet"/>
+        </validation>
+    </wo>
+</wodefinitions>

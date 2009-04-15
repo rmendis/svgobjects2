@@ -25,10 +25,6 @@ public class D2TEdgeToEdgeListPage extends D2TListPage {
     	return (String) d2wContext().valueForKey("stylesheet");
     }
     
-    public String _href() {
-    	return WOApplication.application().resourceManager().urlForResourceNamed(stylesheet(), "DirectToiPhone", null, context().request());
-    }
-    
     // actions
     public WOComponent toggleSearch() {
     	// toggle
