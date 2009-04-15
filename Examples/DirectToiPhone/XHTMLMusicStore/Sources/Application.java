@@ -2,6 +2,7 @@
 
 
 import com.webobjects.appserver.WOApplication;
+import com.webobjects.appserver._private.WODirectActionRequestHandler;
 import com.webobjects.foundation.NSLog;
 
 public class Application extends WOApplication {
@@ -14,5 +15,6 @@ public class Application extends WOApplication {
         super();
         NSLog.out.appendln("Welcome to " + this.name() + " !");
         /* ** put your initialization code in here ** */
+        application().setDefaultRequestHandler(WODirectActionRequestHandler.handler());
     }
 }
