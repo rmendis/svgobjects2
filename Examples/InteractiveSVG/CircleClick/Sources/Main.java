@@ -9,4 +9,13 @@ public class Main extends WOComponent {
 	public Main(WOContext context) {
 		super(context);
 	}
+	
+	// accessors
+	public String jQuerySrc() {
+		return application().resourceManager().urlForResourceNamed("jquery-1.3.1.js", "jQuery", null, context().request());
+	}
+	
+	public String svgPluginSrc() {
+		return application().resourceManager().urlForResourceNamed("jquery.svg.js", "jQuery", null, context().request());
+	}
 }

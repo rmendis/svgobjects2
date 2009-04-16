@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="Sources"/>
-  <classpathentry combineaccessrules="false" kind="con" path="WOFramework/JavaEOAccess"/>
-  <classpathentry combineaccessrules="false" kind="con" path="WOFramework/JavaEOControl"/>
-  <classpathentry combineaccessrules="false" kind="con" path="WOFramework/JavaFoundation"/>
-  <classpathentry combineaccessrules="false" kind="con" path="WOFramework/JavaJDBCAdaptor"/>
-  <classpathentry combineaccessrules="false" kind="con" path="WOFramework/JavaWebObjects"/>
-  <classpathentry combineaccessrules="false" kind="con" path="WOFramework/JavaXML"/>
+	<classpathentry kind="con" path="WOFramework/JavaEOAccess"/>
+	<classpathentry kind="con" path="WOFramework/JavaEOControl"/>
+	<classpathentry kind="con" path="WOFramework/JavaFoundation"/>
+	<classpathentry kind="con" path="WOFramework/JavaJDBCAdaptor"/>
+	<classpathentry kind="con" path="WOFramework/JavaWebObjects"/>
+	<classpathentry kind="con" path="WOFramework/JavaXML"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jQuery"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/svgobjects"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
