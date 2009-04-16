@@ -40,7 +40,7 @@ public class WXScript extends WOComponent {
     public boolean hasScriptString() {
         return hasBinding("scriptString");
     }
-
+    
     public String href() {
         String href = (String) valueForBinding("scriptSource");
 
@@ -49,9 +49,10 @@ public class WXScript extends WOComponent {
             WORequest request = context().request();
             NSArray languages = request.browserLanguages();
             String filename = (String) valueForBinding("scriptFile");
+            String framework = (String) valueForBinding("framework");
             
             // url
-            href = resourceManager.urlForResourceNamed(filename, null, languages, request);
+            href = resourceManager.urlForResourceNamed(filename, framework, languages, request);
         } return href;
     }
 
